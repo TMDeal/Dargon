@@ -6,6 +6,11 @@
 static const int ROOM_MAX_SIZE = 12;
 static const int ROOM_MIN_SIZE = 6;
 
+struct Tile{
+    bool explored;
+    Tile() : explored(false){}
+};
+
 class Map{
     public:
         Map(int width, int height);
