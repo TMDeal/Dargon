@@ -23,25 +23,25 @@ void Game::update()
     TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS, &key, NULL);
     switch(key.vk){
         case TCODK_UP:
-            if(!map->isWall(player->x, player->y-1)){
+            if(map->canWalk(player->x, player->y-1)){
                 player->y--;
                 computeFov = true;
             }
             break;
         case TCODK_DOWN:
-            if(!map->isWall(player->x, player->y+1)){
+            if(map->canWalk(player->x, player->y+1)){
                 player->y++;
                 computeFov = true;
             }
             break;
         case TCODK_LEFT:
-            if(!map->isWall(player->x-1, player->y)){
+            if(map->canWalk(player->x-1, player->y)){
                 player->x--;
                 computeFov = true;
             }
             break;
         case TCODK_RIGHT:
-            if(!map->isWall(player->x+1, player->y)){
+            if(map->canWalk(player->x+1, player->y)){
                 player->x++;
                 computeFov = true;
             }
