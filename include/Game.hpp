@@ -6,6 +6,9 @@
 #include "Actor.hpp"
 #include "Map.hpp"
 
+static const int GAME_WINDOW_WIDTH = 80;
+static const int GAME_WINDOW_HEIGHT = 50;
+
 class Game{
     friend class Map;
     public:
