@@ -1,6 +1,7 @@
 #include "Game.hpp"
 
 Game::Game()
+    :fovRadius(10), computeFov(true)
 {
     TCODConsole::setCustomFont((getResPath() + "terminal.png").c_str());
     TCODConsole::initRoot(80, 50, "Dargon", false);
