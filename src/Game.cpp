@@ -60,7 +60,10 @@ void Game::render()
     map->render();
     
     for(Actor **iter = actors.begin(); iter != actors.end(); iter++){
-        (*iter)->render();
+        Actor *actor = *iter;
+        if(map->isInFov(actor->x, actor->y)){
+            actor->render();
+        }
     }
 }
 
