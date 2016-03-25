@@ -17,11 +17,17 @@ class Map{
         ~Map();
 
         bool isWall(int x, int y) const;
-        void render() const;
         void dig(int x1, int y1, int x2, int y2);
         void createRoom(bool first, int x1, int y1, int x2, int y2);
+
+        bool isInFov(int x, int y) const;
+        bool isExplored(int x, int y) const;
+        void computeFov();
+
+        void render() const;
     private:
         int width, height;
+        Tile *tiles;
         TCODMap *map;
         TCODBsp *bsp;
 };
