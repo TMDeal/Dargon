@@ -17,6 +17,8 @@ class Game{
     private:
         TCODList<Actor *> actors;
         Actor *player;
+        int fovRadius;
+        bool computeFov;
         Map *map;
 };
 
