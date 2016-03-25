@@ -6,6 +6,7 @@
 Map::Map(int width, int height)
     :width(width), height(height)
 {
+    tiles = new Tile[width*height];
     map = new TCODMap(width, height);
     bsp = new TCODBsp(0, 0, width, height);
     bsp->splitRecursive(NULL, 8, ROOM_MAX_SIZE, ROOM_MAX_SIZE, 1.5f, 1.5f);
@@ -15,8 +16,29 @@ Map::Map(int width, int height)
 
 Map::~Map()
 {
+    delete[] tiles;
     delete map;
     delete bsp;
+}
+
+bool Map::isExplored(int x, int y) const
+{
+    return tiles[x+y*width].explored;
+}
+
+bool Map::isInFov(int x, int y) const
+{
+    if(map->isInFov(x, y)){
+        tiles[x+y*width].explored = true;
+        return true;
+    }
+    return false;
+}
+
+void Map::computeFov()
+{
+    map->computeFov(game.player->x, game.player->y,
+            game.fovRadius);
 }
 
 bool Map::isWall(int x, int y) const
