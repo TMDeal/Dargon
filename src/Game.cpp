@@ -4,7 +4,8 @@ Game::Game()
     :fovRadius(10), computeFov(true)
 {
     TCODConsole::setCustomFont((getResPath() + "terminal.png").c_str());
-    TCODConsole::initRoot(80, 50, "Dargon", false);
+    TCODConsole::initRoot(GAME_WINDOW_WIDTH, GAME_WINDOW_HEIGHT, "Dargon", false);
+    TCODSystem::setFps(60);
     player = new Actor(40, 25, '@', TCODColor::white);
     actors.push(player);
     map = new Map(80, 50);
