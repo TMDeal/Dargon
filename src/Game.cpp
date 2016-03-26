@@ -6,7 +6,7 @@ Game::Game()
     TCODConsole::setCustomFont((getResPath() + "terminal.png").c_str());
     TCODConsole::initRoot(GAME_WINDOW_WIDTH, GAME_WINDOW_HEIGHT, "Dargon", false);
     TCODSystem::setFps(60);
-    player = new Actor(40, 25, '@', TCODColor::white);
+    player = new Creature(40, 25, '@', TCODColor::white);
     actors.push(player);
     map = new Map(80, 50);
 }
@@ -60,11 +60,11 @@ void Game::render()
 {
     TCODConsole::root->clear();
     map->render();
-    
-    for(Actor **iter = actors.begin(); iter != actors.end(); iter++){
-        Actor *actor = *iter;
-        if(map->isInFov(actor->x, actor->y)){
-            actor->render();
+
+    for(Creature **iter = actors.begin(); iter != actors.end(); iter++){
+        Creature *creature = *iter;
+        if(map->isInFov(creature->x, creature->y)){
+            creature->render();
         }
     }
 }

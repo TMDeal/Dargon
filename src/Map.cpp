@@ -45,11 +45,11 @@ void Map::addMonster(int x, int y)
 {
     TCODRandom *rng = TCODRandom::getInstance();
     if(rng->getInt(0, 100) < 80){
-        game.actors.push(new Actor(x, y, 'O',
+        game.actors.push(new Creature(x, y, 'O',
                     TCODColor::desaturatedGreen));
     }
     else{
-        game.actors.push(new Actor(x, y, 'O',
+        game.actors.push(new Creature(x, y, 'O',
                     TCODColor::darkerGreen));
     }
 }
@@ -64,9 +64,9 @@ bool Map::canWalk(int x, int y) const
     if(isWall(x, y)){
         return false;
     }
-    for(Actor **iter = game.actors.begin(); iter != game.actors.end(); iter++){
-        Actor *actor = *iter;
-        if(actor->x == x && actor->y == y){
+    for(Creature **iter = game.actors.begin(); iter != game.actors.end(); iter++){
+        Creature *creature = *iter;
+        if(creature->x == x && creature->y == y){
             return false;
         }
     }
