@@ -8,6 +8,10 @@ Map::Map(int width, int height)
     tiles = new Tile[width*height];
     map = new TCODMap(width, height);
     bsp = new TCODBsp(0, 0, width, height);
+}
+
+void Map::generate(){
+    bsp->removeSons();
     bsp->splitRecursive(NULL, 8, ROOM_MAX_SIZE, ROOM_MAX_SIZE, 1.5f, 1.5f);
     BspCallBack callBack(*this);
     bsp->traverseInvertedLevelOrder(&callBack, NULL);
