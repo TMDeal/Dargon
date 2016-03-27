@@ -1,14 +1,16 @@
 #include "Game.hpp"
 
 Game::Game()
-    :fovRadius(10), computeFov(true)
+    :computeFov(true)
 {
     TCODConsole::setCustomFont((getResPath() + "terminal.png").c_str());
     TCODConsole::initRoot(GAME_WINDOW_WIDTH, GAME_WINDOW_HEIGHT, "Dargon", false);
+    rng = TCODRandom::getInstance();
     TCODSystem::setFps(60);
-    player = new Actor(40, 25, '@', TCODColor::white);
-    actors.push(player);
     map = new Map(80, 50);
+    player = new Actor(40, 25, '@', TCODColor::white, map);
+    actors.push(player);
+    map->generate();
 }
 
 Game::~Game()
