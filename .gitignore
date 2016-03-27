@@ -2,3 +2,4 @@
 include/templates_out/
 build/
 bin/
+tags
