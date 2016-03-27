@@ -3,7 +3,7 @@
 
 #include "libtcod/libtcod.hpp"
 #include "templates_out/projectPaths.h"
-#include "Creature.hpp"
+#include "Actor.hpp"
 #include "Map.hpp"
 
 static const int GAME_WINDOW_WIDTH = 80;
@@ -18,8 +18,8 @@ class Game{
         void update();
         void render();
     private:
-        TCODList<Creature *> actors;
-        Creature *player;
+        TCODList<Actor *> actors;
+        Actor *player;
         int fovRadius;
         bool computeFov;
         Map *map;
