@@ -32,6 +32,7 @@ class Map{
         Map(int width, int height);
         ~Map();
 
+        void generate();
         bool isWall(int x, int y) const;
         bool canWalk(int x, int y) const;
         void dig(int x1, int y1, int x2, int y2);
@@ -39,9 +40,7 @@ class Map{
 
         bool isInFov(int x, int y) const;
         bool isExplored(int x, int y) const;
-        void computeFov();
-
-        void addMonster(int x, int y);
+        void computeFov(int x, int y);
 
         void render() const;
     private:
