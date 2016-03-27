@@ -1,5 +1,4 @@
 #include "Map.hpp"
-#include "Game.hpp"
 #include "BspCallBack.hpp"
 #include <algorithm>
 
