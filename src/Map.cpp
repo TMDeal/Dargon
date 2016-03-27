@@ -34,23 +34,9 @@ bool Map::isInFov(int x, int y) const
     return false;
 }
 
-void Map::computeFov()
+void Map::computeFov(int x, int y)
 {
-    map->computeFov(game.player->x, game.player->y,
-            game.fovRadius);
-}
-
-void Map::addMonster(int x, int y)
-{
-    TCODRandom *rng = TCODRandom::getInstance();
-    if(rng->getInt(0, 100) < 80){
-        game.actors.push(new Actor(x, y, 'O',
-                    TCODColor::desaturatedGreen));
-    }
-    else{
-        game.actors.push(new Actor(x, y, 'O',
-                    TCODColor::darkerGreen));
-    }
+    map->computeFov(x, y, FOVRADIUS);
 }
 
 bool Map::isWall(int x, int y) const
