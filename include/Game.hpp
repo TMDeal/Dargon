@@ -15,12 +15,15 @@ class Game{
         Game();
         ~Game();
 
+        void createRoom(bool first, int x1, int y1, int x2, int y2);
+        void placeActor(int x, int y, bool playerStart=false);
+
         void update();
         void render();
     private:
         TCODList<Actor *> actors;
+        TCODRandom *rng;
         Actor *player;
-        int fovRadius;
         bool computeFov;
         Map *map;
 };
