@@ -6,6 +6,21 @@
 static const int ROOM_MAX_SIZE = 12;
 static const int ROOM_MIN_SIZE = 6;
 static const int MAX_ROOM_MONSTERS = 3;
+static const int FOVRADIUS = 10;
+
+// define directions according to keypad keys
+typedef enum Direction{
+    INVALID_DIRECTION,   // 0
+    DOWN_LEFT_DIAG,      // 1
+    DOWN,                // 2
+    DOWN_RIGHT_DIAG,     // 3
+    LEFT,                // 4
+    STAY,                // 5
+    RIGHT,               // 6
+    UP_LEFT_DIAG,        // 7
+    UP,                  // 8
+    UP_RIGHT_DIAG,       // 9
+}Direction;
 
 struct Tile{
     bool explored;
