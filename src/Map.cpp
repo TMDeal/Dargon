@@ -78,27 +78,6 @@ void Map::dig(int x1, int y1, int x2, int y2)
     }
 }
 
-void Map::createRoom(bool first, int x1, int y1, int x2, int y2)
-{
-    dig(x1, y1, x2, y2);
-    if(first){
-       game.player->x = (x1 + x2) / 2;
-       game.player->y = (y1 + y2) / 2;
-    }
-    else{
-        TCODRandom *rng = TCODRandom::getInstance();
-        int roomMonsters = rng->getInt(0, MAX_ROOM_MONSTERS);
-        if(roomMonsters > 0){
-            int x = rng->getInt(x1, x2);
-            int y = rng->getInt(y1, y2);
-            if(canWalk(x, y)){
-                addMonster(x, y);
-            }
-            roomMonsters--;
-        }
-    }
-}
-
 void Map::render() const
 {
     static const TCODColor darkWall(0, 0, 100);
