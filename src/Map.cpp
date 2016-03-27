@@ -54,8 +54,8 @@ bool Map::canWalk(int x, int y) const
         return false;
     }
     for(Actor **iter = game.actors.begin(); iter != game.actors.end(); iter++){
-        Actor *creature = *iter;
-        if(creature->x == x && creature->y == y){
+        Actor *actor = *iter;
+        if(actor->collides(x, y)){
             return false;
         }
     }
