@@ -6,7 +6,7 @@ Game::Game()
     TCODConsole::setCustomFont((getResPath() + "terminal.png").c_str());
     TCODConsole::initRoot(GAME_WINDOW_WIDTH, GAME_WINDOW_HEIGHT, "Dargon", false);
     rng = TCODRandom::getInstance();
-    TCODSystem::setFps(60);
+    TCODSystem::setFps(30);
     map = new Map(80, 50);
     player = new Actor(40, 25, '@', TCODColor::white, map);
     actors.push(player);
