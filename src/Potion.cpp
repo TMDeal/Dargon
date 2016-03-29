@@ -7,7 +7,12 @@ Potion::Potion(int x, int y, int ch, TCODColor col, Map *map)
     type = getType();
 }
 
-Potion_Type Potion::randomType()
+Potion::~Potion()
+{
+    delete rng;
+}
+
+Potion_Type Potion::getType()
 {
     int chance = rng->getInt(0, 100);
 
