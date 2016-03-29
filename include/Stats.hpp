@@ -3,11 +3,12 @@
 
 class Stats{
     public:
-        Stats(int hp, int mp, int attack, int defense, int level=1);
+        Stats(int maxHp, int maxMp, int attack, int defense, int level=1);
         Stats();
         ~Stats();
 
         void takeDamage(int damage);
+        void heal(int healAmount);
         bool isAlive() const;
         int getAttackRoll() const;
         int getDefenseRoll() const;
@@ -15,7 +16,8 @@ class Stats{
         void levelUp();
 
     protected:
-        int hp, mp; //Health and Mana points, respectively
+        int hp, mp;          // Health and Mana points, respectively
+        int maxHp, maxMp;    // Maximum Health and Mana points, respectively
         int attack, defense;
         int level;
 };
