@@ -1,5 +1,5 @@
-#ifndef CREATURE_HPP
-#define CREATURE_HPP
+#ifndef ACTOR_HPP
+#define ACTOR_HPP
 
 #include "libtcod/libtcod.hpp"
 #include "Map.hpp"
@@ -31,4 +31,4 @@ class Actor{
         TCODColor col; // the color of the Actor
 };
 
-#endif /* CREATURE_HPP */
+#endif /* ACTOR_HPP */
