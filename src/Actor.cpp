@@ -11,6 +11,16 @@ bool Actor::isAlive() const
     return stats->isAlive();
 }
 
+void Actor::heal(int healAmount)
+{
+    stats->heal(healAmount);
+}
+
+void Actor::takeDamage(int damage)
+{
+    stats->takeDamage(damage);
+}
+
 bool Actor::isInFov() const{
     return map->isInFov(this->x, this->y);
 }
