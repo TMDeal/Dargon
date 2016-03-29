@@ -14,7 +14,7 @@ class Potion : public Actor{
         Potion(int x, int y, int ch, TCODColor col, Map *map);
         ~Potion();
 
-        Potion_Type randomType();
+        Potion_Type getType();
         void drink(Actor &drinker);
     private:
         typedef Actor super;

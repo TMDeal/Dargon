@@ -4,7 +4,7 @@ Potion::Potion(int x, int y, int ch, TCODColor col, Map *map)
     :super(x, y, ch, col, map)
 {
     rng = TCODRandom::getInstance();
-    type = randomType();
+    type = getType();
 }
 
 Potion_Type Potion::randomType()
