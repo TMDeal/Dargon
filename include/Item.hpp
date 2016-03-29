@@ -13,6 +13,7 @@ class Item{
     protected:
         int x, y;
         int ch;
+        TCODColor col;
         Map *map;
 };
 
