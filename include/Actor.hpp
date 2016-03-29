@@ -12,6 +12,7 @@ class Actor{
         bool move(Direction dir);
         bool move(int x, int y);
         bool collides(int x, int y);
+
         bool isAlive() const;
         void heal(int healAmount);
         void takeDamage(int damage);
@@ -22,8 +23,8 @@ class Actor{
         void update();
         void render() const;
 
-    private:
-        int x, y; // X and Y positions of the Actor
+    protected:
+        int x, y;      // X and Y positions of the Actor
         int ch;        // ascii character for Actor as an int
         Stats *stats;  // Object to define Actor stats
         Map *map;      // Map for the Actor to reference
