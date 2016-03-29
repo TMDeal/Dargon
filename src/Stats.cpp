@@ -43,3 +43,10 @@ void Stats::takeDamage(int damage)
     hp -= damage;
 }
 
+void Stats::heal(int healAmount)
+{
+    if(hp <= maxHp || hp + healAmount <= maxHp){
+        hp += healAmount;
+    }
+}
+
