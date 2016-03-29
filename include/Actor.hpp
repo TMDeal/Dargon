@@ -13,6 +13,9 @@ class Actor{
         bool move(int x, int y);
         bool collides(int x, int y);
         bool isAlive() const;
+        void heal(int healAmount);
+        void takeDamage(int damage);
+
         bool isInFov() const;
         void computeFov();
 
