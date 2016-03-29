@@ -28,9 +28,13 @@ Potion_Type Potion::getType()
 
 void Potion::drink(Actor &drinker)
 {
-}
-
-Potion::~Potion()
-{
+    switch(type){
+        case HEALING:
+            drinker.heal(5);
+        case POISON:
+            drinker.takeDamage(5);
+        case DUD:
+            break;
+    }
 }
 
