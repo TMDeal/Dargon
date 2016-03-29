@@ -1,12 +1,12 @@
 #include "Stats.hpp"
 
 Stats::Stats()
-    :hp(10), mp(10), attack(5), defense(0)
+    :maxHp(10), maxMp(10), attack(5), defense(0)
 {
 }
 
-Stats::Stats(int hp, int mp, int attack, int defense, int level)
-    :hp(hp), mp(mp), attack(attack), defense(defense), level(level)
+Stats::Stats(int maxHp, int maxMp, int attack, int defense, int level)
+    :maxHp(maxHp), maxMp(maxMp), attack(attack), defense(defense), level(level)
 {
 }
 
