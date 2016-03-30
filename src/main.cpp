@@ -1,7 +1,7 @@
 #include "libtcod/libtcod.hpp"
 #include "Game.hpp"
 
-Game game;
+Game game(80, 50);
 
 int main(int argc, char *argv[])
 {
