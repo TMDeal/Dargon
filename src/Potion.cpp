@@ -26,7 +26,7 @@ Potion_Type Potion::getType()
     return DUD;
 }
 
-void Potion::drink(Actor &drinker)
+void Potion::use(Creature &drinker)
 {
     switch(type){
         case HEALING:
