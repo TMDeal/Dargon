@@ -52,36 +52,18 @@ void Game::createRoom(bool first, int x1, int y1, int x2, int y2)
 
 void Game::update()
 {
-    TCOD_key_t key;
-    TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS, &key, NULL);
-    switch(key.vk){
-        case TCODK_UP:
-            if(player->move(UP)){
-                computeFov = true;
-            }
-            break;
-        case TCODK_DOWN:
-            if(player->move(DOWN)){
-                computeFov = true;
-            }
-            break;
-        case TCODK_LEFT:
-            if(player->move(LEFT)){
-                computeFov = true;
-            }
-            break;
-        case TCODK_RIGHT:
-            if(player->move(RIGHT)){
-                computeFov = true;
-            }
-            break;
-        default:
-            break;
-    }
-
-    if(computeFov){
+    if(gameState == STARTUP){
         player->computeFov();
-        computeFov = false;
+    }
+    gameState = IDLE;
+    player->update();
+    if(gameState == NEW_TURN){
+        for(Actor **iter = actors.begin(); iter != actors.end(); iter++){
+            Actor *actor = *iter;
+            if(actor != player){
+                actor->update();
+            }
+        }
     }
 }
 
