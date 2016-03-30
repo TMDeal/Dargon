@@ -3,6 +3,7 @@
 
 #include "libtcod/libtcod.hpp"
 #include "templates_out/projectPaths.h"
+#include "CreatureFactory.hpp"
 #include "Actor.hpp"
 #include "Map.hpp"
 
@@ -23,9 +24,10 @@ class Game{
     private:
         TCODList<Actor *> actors;
         TCODRandom *rng;
-        Actor *player;
+        Creature *player;
         bool computeFov;
         Map *map;
+        CreatureFactory *creatureFactory;
 };
 
 extern Game game;
