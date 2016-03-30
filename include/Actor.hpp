@@ -4,6 +4,7 @@
 #include "libtcod/libtcod.hpp"
 #include "Map.hpp"
 
+class Map;
 class Actor{
     public:
         Actor(int x, int y, int ch, const TCODColor col, Map *map);
