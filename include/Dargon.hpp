@@ -8,6 +8,9 @@ class Dargon : public Creature{
     public:
         Dargon(int x, int y, Map *map);
         ~Dargon();
+
+        void update();
+        void die();
     private:
         typedef Creature super;
 };
