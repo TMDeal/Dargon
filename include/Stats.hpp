@@ -4,7 +4,6 @@
 class Stats{
     public:
         Stats(int maxHp, int maxMp, int attack, int defense, int level=1);
-        Stats();
         ~Stats();
 
         void takeDamage(int damage);
