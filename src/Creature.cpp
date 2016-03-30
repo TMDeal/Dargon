@@ -18,6 +18,13 @@ int Creature::defend(Creature &attacker)
 {
 }
 
+void Creature::update()
+{
+    if(!stats->isAlive()){
+        die();
+    }
+}
+
 bool Creature::move(Direction dir)
 {
     switch(dir){
