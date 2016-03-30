@@ -1,7 +1,7 @@
 #ifndef POTION_HPP
 #define POTION_HPP
 
-#include "Actor.hpp"
+#include "Item.hpp"
 
 typedef enum Potion_Type{
     DUD,
@@ -9,15 +9,15 @@ typedef enum Potion_Type{
     POISON,
 }Potion_Type;
 
-class Potion : public Actor{
+class Potion : public Item{
     public:
         Potion(int x, int y, int ch, TCODColor col, Map *map);
         ~Potion();
 
         Potion_Type getType();
-        void drink(Actor &drinker);
+        void use(Creature &drinker);
     private:
-        typedef Actor super;
+        typedef Item super;
         Potion_Type type;
         TCODRandom *rng;
 };
