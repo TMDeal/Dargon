@@ -7,6 +7,9 @@ class Player : public Creature{
     public:
         Player(int x, int y, Map *map);
         ~Player();
+
+        void update();
+        void die();
     private:
         typedef Creature super;
         //need to create inventory for player
