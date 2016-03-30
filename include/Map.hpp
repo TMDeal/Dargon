@@ -2,11 +2,14 @@
 #define MAP_HPP
 
 #include "libtcod/libtcod.hpp"
+#include "Actor.hpp"
 
 static const int ROOM_MAX_SIZE = 12;
 static const int ROOM_MIN_SIZE = 6;
 static const int MAX_ROOM_MONSTERS = 3;
 static const int FOVRADIUS = 10;
+
+class Actor;
 
 // define directions according to keypad keys
 typedef enum Direction{
@@ -24,7 +27,8 @@ typedef enum Direction{
 
 struct Tile{
     bool explored;
-    Tile() : explored(false){}
+    Actor *actor;
+    Tile() : explored(false), actor(NULL){}
 };
 
 class Map{
