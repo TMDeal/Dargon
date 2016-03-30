@@ -8,7 +8,8 @@ Game::Game()
     rng = TCODRandom::getInstance();
     TCODSystem::setFps(30);
     map = new Map(80, 50);
-    player = new Actor(40, 25, '@', TCODColor::white, map);
+    creatureFactory = new CreatureFactory(map);
+    player = creatureFactory->makeCreature(PLAYER, 0, 0);
     actors.push(player);
     map->generate();
 }
@@ -20,13 +21,13 @@ Game::~Game()
 }
 
 void Game::placeActor(int x, int y, bool playerStart){
-    int roomMonsters = rng->getInt(0, MAX_ROOM_MONSTERS);
     if(playerStart){
-        player->move(x, y);
+        player->place(x, y);
     }
+    int roomMonsters = rng->getInt(0, MAX_ROOM_MONSTERS);
     if(roomMonsters > 0){
         if(map->canWalk(x, y)){
-            actors.push(new Actor(x, y, '@', TCODColor::yellow, map));
+            actors.push(creatureFactory->makeCreature(DARGON, x, y));
         }
         roomMonsters--;
     }
