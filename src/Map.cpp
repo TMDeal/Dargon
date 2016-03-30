@@ -10,6 +10,13 @@ Map::Map(int width, int height)
     bsp = new TCODBsp(0, 0, width, height);
 }
 
+Map::~Map()
+{
+    delete[] tiles;
+    delete map;
+    delete bsp;
+}
+
 void Map::generate(){
     bsp->removeSons();
     bsp->splitRecursive(NULL, 8, ROOM_MAX_SIZE, ROOM_MAX_SIZE, 1.5f, 1.5f);
@@ -17,11 +24,19 @@ void Map::generate(){
     bsp->traverseInvertedLevelOrder(&callBack, NULL);
 }
 
-Map::~Map()
+void Map::setActorOnTile(Actor &actor, int x, int y)
 {
-    delete[] tiles;
-    delete map;
-    delete bsp;
+    tiles[x+y*width].actor = &actor;
+}
+
+void Map::removeActorOnTile(int x, int y)
+{
+    tiles[x+y*width].actor = NULL;
+}
+
+bool Map::isActorOnTile(int x, int y) const
+{
+    return tiles[x+y*width].actor != NULL;
 }
 
 bool Map::isExplored(int x, int y) const
