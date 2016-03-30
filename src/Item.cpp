@@ -1,16 +1,11 @@
 #include "Item.hpp"
 
 Item::Item(int x, int y, int ch, TCODColor col, Map *map)
-    : x(x), y(y), ch(ch), col(col)
+    :super(x, y, ch, col, map)
 {
-    this->map = map;
 }
 
 Item::~Item()
 {
     delete map;
-}
-
-void Item::render()
-{
 }
