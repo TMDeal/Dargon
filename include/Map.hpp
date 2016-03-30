@@ -40,7 +40,9 @@ class Map{
         bool isWall(int x, int y) const;
         bool canWalk(int x, int y) const;
         void dig(int x1, int y1, int x2, int y2);
-        void createRoom(bool first, int x1, int y1, int x2, int y2);
+        void setActorOnTile(Actor &actor, int x, int y);
+        void removeActorOnTile(int x, int y);
+        bool isActorOnTile(int x, int y) const;
 
         bool isInFov(int x, int y) const;
         bool isExplored(int x, int y) const;
