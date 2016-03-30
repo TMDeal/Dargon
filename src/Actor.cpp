@@ -4,6 +4,7 @@ Actor::Actor(int x, int y, int ch, const TCODColor col, Map *map)
     : x(x), y(y), ch(ch), col(col)
 {
     this->map = map;
+    map->setActorOnTile(*this, this->x, this->y);
 }
 
 
@@ -22,6 +23,8 @@ void Actor::computeFov()
 
 bool Actor::place(int x, int y){
     if(map->canWalk(x, y)){
+        map->setActorOnTile(*this, x, y);
+        map->removeActorOnTile(this->x, this->y);
         this->x = x;
         this->y = y;
         return true;
