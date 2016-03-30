@@ -14,7 +14,7 @@ class Actor{
         bool isInFov() const;
         void computeFov();
 
-        void update();
+        virtual void update() = 0;
         void render() const;
 
     protected:
