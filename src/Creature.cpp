@@ -12,6 +12,7 @@ Creature::~Creature()
 
 void Creature::attack(Creature &defender)
 {
+    defender.takeDamage(stats->getAttackRoll());
 }
 
 int Creature::defend(Creature &attacker)
@@ -34,12 +35,16 @@ bool Creature::move(Direction dir)
             if(map->canWalk(x-1, y+1)){
                 this->x--;
                 this->y++;
+                map->setActorOnTile(*this, this->x, this->y);
+                map->removeActorOnTile(this->x+1, this->y-1);
                 return true;
             }
             break;
         case DOWN:
             if(map->canWalk(x, y+1)){
                 this->y++;
+                map->setActorOnTile(*this, this->x, this->y);
+                map->removeActorOnTile(this->x, this->y-1);
                 return true;
             }
             break;
@@ -47,12 +52,16 @@ bool Creature::move(Direction dir)
             if(map->canWalk(x+1, y+1)){
                 this->x++;
                 this->y++;
+                map->setActorOnTile(*this, this->x, this->y);
+                map->removeActorOnTile(this->x-1, this->y-1);
                 return true;
             }
             break;
         case LEFT:
             if(map->canWalk(x-1, y)){
                 this->x--;
+                map->setActorOnTile(*this, this->x, this->y);
+                map->removeActorOnTile(this->x+1, this->y);
                 return true;
             }
             break;
@@ -61,6 +70,8 @@ bool Creature::move(Direction dir)
         case RIGHT:
             if(map->canWalk(x+1, y)){
                 this->x++;
+                map->setActorOnTile(*this, this->x, this->y);
+                map->removeActorOnTile(this->x-1, this->y);
                 return true;
             }
             break;
@@ -68,12 +79,16 @@ bool Creature::move(Direction dir)
             if(map->canWalk(x-1, y-1)){
                 this->x--;
                 this->y--;
+                map->setActorOnTile(*this, this->x, this->y);
+                map->removeActorOnTile(this->x+1, this->y+1);
                 return true;
             }
             break;
         case UP:
             if(map->canWalk(x, y-1)){
                 this->y--;
+                map->setActorOnTile(*this, this->x, this->y);
+                map->removeActorOnTile(this->x, this->y+1);
                 return true;
             }
             break;
@@ -81,6 +96,8 @@ bool Creature::move(Direction dir)
             if(map->canWalk(x+1, y-1)){
                 this->x--;
                 this->y--;
+                map->setActorOnTile(*this, this->x, this->y);
+                map->removeActorOnTile(this->x+1, this->y+1);
                 return true;
             }
             break;
