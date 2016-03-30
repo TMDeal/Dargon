@@ -29,10 +29,6 @@ bool Actor::place(int x, int y){
     return false;
 }
 
-void Actor::update()
-{
-}
-
 void Actor::render() const {
     TCODConsole::root->setChar(x, y, ch);
     TCODConsole::root->setCharForeground(x, y, col);
