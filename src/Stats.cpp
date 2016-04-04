@@ -3,6 +3,8 @@
 Stats::Stats(int maxHp, int maxMp, int attack, int defense, int level)
     :maxHp(maxHp), maxMp(maxMp), attack(attack), defense(defense), level(level)
 {
+    hp = maxHp;
+    mp = maxMp;
 }
 
 Stats::~Stats()
@@ -11,7 +13,7 @@ Stats::~Stats()
 
 bool Stats::isAlive() const
 {
-    return hp <= 0;
+    return hp >= 0;
 }
 
 int Stats::getAttackRoll() const
