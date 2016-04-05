@@ -19,6 +19,11 @@ int Creature::defend(Creature &attacker)
 {
 }
 
+void Creature::interact(Actor &actor)
+{
+    attack(dynamic_cast<Creature&>(actor));
+}
+
 void Creature::update()
 {
     if(!stats->isAlive()){

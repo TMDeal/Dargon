@@ -19,6 +19,7 @@ class Creature : public Actor{
         int defend(Creature &attacker);
 
         virtual void update();
+        virtual void interact(Actor &actor);
         virtual void die() = 0;
     private:
         typedef Actor super;
