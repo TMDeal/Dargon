@@ -13,7 +13,6 @@ class Actor;
 
 // define directions according to keypad keys
 typedef enum Direction{
-    INVALID_DIRECTION,   // 0
     DOWN_LEFT_DIAG,      // 1
     DOWN,                // 2
     DOWN_RIGHT_DIAG,     // 3
