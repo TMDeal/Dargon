@@ -12,6 +12,7 @@ class Item : public Actor{
         ~Item();
 
         virtual void use(Creature &creature) = 0;
+        void interact(Actor &actor);
     private:
         typedef Actor super;
 };

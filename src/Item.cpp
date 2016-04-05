@@ -5,6 +5,11 @@ Item::Item(int x, int y, int ch, TCODColor col, Map *map)
 {
 }
 
+void Item::interact(Actor &actor)
+{
+    use(dynamic_cast<Creature&>(actor));
+}
+
 Item::~Item()
 {
     delete map;
