@@ -29,6 +29,11 @@ void Map::setActorOnTile(Actor &actor, int x, int y)
     tiles[x+y*width].actor = &actor;
 }
 
+Actor &Map::getActorOnTile(int x, int y)
+{
+    return *tiles[x+y*width].actor;
+}
+
 void Map::removeActorOnTile(int x, int y)
 {
     tiles[x+y*width].actor = NULL;
