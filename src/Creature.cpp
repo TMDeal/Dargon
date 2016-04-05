@@ -33,81 +33,56 @@ void Creature::update()
 
 bool Creature::move(Direction dir)
 {
+    int newX = this->x;
+    int newY = this->y;
+
     switch(dir){
-        case INVALID_DIRECTION:
-            break;
         case DOWN_LEFT_DIAG:
-            if(map->canWalk(x-1, y+1)){
-                this->x--;
-                this->y++;
-                map->setActorOnTile(*this, this->x, this->y);
-                map->removeActorOnTile(this->x+1, this->y-1);
-                return true;
-            }
+            newX--;
+            newY++;
             break;
         case DOWN:
-            if(map->canWalk(x, y+1)){
-                this->y++;
-                map->setActorOnTile(*this, this->x, this->y);
-                map->removeActorOnTile(this->x, this->y-1);
-                return true;
-            }
+            newY++;
             break;
         case DOWN_RIGHT_DIAG:
-            if(map->canWalk(x+1, y+1)){
-                this->x++;
-                this->y++;
-                map->setActorOnTile(*this, this->x, this->y);
-                map->removeActorOnTile(this->x-1, this->y-1);
-                return true;
-            }
+            newX++;
+            newY++;
             break;
         case LEFT:
-            if(map->canWalk(x-1, y)){
-                this->x--;
-                map->setActorOnTile(*this, this->x, this->y);
-                map->removeActorOnTile(this->x+1, this->y);
-                return true;
-            }
+            newX--;
             break;
         case STAY:
+            return false;
             break;
         case RIGHT:
-            if(map->canWalk(x+1, y)){
-                this->x++;
-                map->setActorOnTile(*this, this->x, this->y);
-                map->removeActorOnTile(this->x-1, this->y);
-                return true;
-            }
+            newX++;
             break;
         case UP_LEFT_DIAG:
-            if(map->canWalk(x-1, y-1)){
-                this->x--;
-                this->y--;
-                map->setActorOnTile(*this, this->x, this->y);
-                map->removeActorOnTile(this->x+1, this->y+1);
-                return true;
-            }
+            newX--;
+            newY--;
             break;
         case UP:
-            if(map->canWalk(x, y-1)){
-                this->y--;
-                map->setActorOnTile(*this, this->x, this->y);
-                map->removeActorOnTile(this->x, this->y+1);
-                return true;
-            }
+            newY--;
             break;
         case UP_RIGHT_DIAG:
-            if(map->canWalk(x+1, y-1)){
-                this->x--;
-                this->y--;
-                map->setActorOnTile(*this, this->x, this->y);
-                map->removeActorOnTile(this->x+1, this->y+1);
-                return true;
-            }
+            newX++;
+            newY--;
             break;
         default:
+            return false;
             break;
+    }
+    if(map->canWalk(newX, newY)){
+        int oldX = this->x;
+        int oldY = this->y;
+        this->x = newX;
+        this->y = newY;
+        map->setActorOnTile(*this, this->x, this->y);
+        map->removeActorOnTile(oldX, oldY);
+        return true;
+    }
+    else if(map->isActorOnTile(newX, newY)){
+        interact(map->getActorOnTile(newX, newY));
     }
     return false;
 }
