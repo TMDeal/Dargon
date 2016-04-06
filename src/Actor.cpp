@@ -7,6 +7,9 @@ Actor::Actor(int x, int y, int ch, const TCODColor col, Map *map)
     map->setActorOnTile(*this, this->x, this->y);
 }
 
+Actor::~Actor()
+{
+}
 
 bool Actor::isInFov() const{
     return map->isInFov(this->x, this->y);

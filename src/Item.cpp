@@ -10,6 +10,10 @@ void Item::interact(Actor &actor)
     use(dynamic_cast<Creature&>(actor));
 }
 
+void Item::update()
+{
+}
+
 Item::~Item()
 {
     delete map;
