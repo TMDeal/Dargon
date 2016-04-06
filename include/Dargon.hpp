@@ -1,6 +1,7 @@
 #ifndef DARGON_HPP
 #define DARGON_HPP
 
+#include <cstdio>
 #include "Creature.hpp"
 #include "Map.hpp"
 

@@ -8,7 +8,7 @@ Dargon::Dargon(int x, int y, Map *map)
 
 void Dargon::die()
 {
-    return;
+    printf("Dargon died");
 }
 
 void Dargon::update()
