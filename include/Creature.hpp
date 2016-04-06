@@ -12,6 +12,8 @@ class Creature : public Actor{
 
         bool move(Direction dir);
         bool isAlive() const;
+        bool inPlay() const;
+
         void heal(int healAmount);
         void takeDamage(int damage);
 

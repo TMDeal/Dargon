@@ -93,6 +93,11 @@ bool Creature::isAlive() const
     return stats->isAlive();
 }
 
+bool Creature::inPlay() const
+{
+    return isAlive();
+}
+
 void Creature::heal(int healAmount)
 {
     stats->heal(healAmount);
