@@ -9,7 +9,7 @@ Dargon::Dargon(int x, int y, Map *map)
 
 void Dargon::die()
 {
-    printf("Dargon died");
+    map->removeActorOnTile(this->x, this->y);
 }
 
 void Dargon::update()
