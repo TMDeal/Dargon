@@ -1,6 +1,8 @@
 #ifndef STATS_HPP
 #define STATS_HPP
 
+#include <cstdio>
+
 class Stats{
     public:
         Stats(int maxHp, int maxMp, int attack, int defense, int level=1);
@@ -13,6 +15,7 @@ class Stats{
         int getDefenseRoll() const;
 
         void levelUp();
+        void displayeStats() const;
 
     protected:
         int hp, mp;          // Health and Mana points, respectively
