@@ -82,7 +82,7 @@ bool Creature::move(Direction dir)
         return true;
     }
     else if(map->isActorOnTile(newX, newY)){
-        interact(map->getActorOnTile(newX, newY));
+        interact(*map->getActorOnTile(newX, newY));
     }
     return false;
 }
