@@ -11,7 +11,7 @@ typedef enum Potion_Type{
 
 class Potion : public Item{
     public:
-        Potion(int x, int y, int ch, TCODColor col, Map *map);
+        Potion(int x, int y, Map *map);
         ~Potion();
 
         Potion_Type getType();
