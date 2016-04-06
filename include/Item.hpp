@@ -12,10 +12,13 @@ class Item : public Actor{
         virtual ~Item();
 
         virtual void use(Creature &creature) = 0;
+        bool inPlay() const;
         void update();
         void interact(Actor &actor);
     private:
         typedef Actor super;
+    protected:
+        bool hasBeenPicked;
 };
 
 #endif /* ITEM_HPP */
