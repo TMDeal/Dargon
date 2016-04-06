@@ -24,6 +24,14 @@ class CreatureFactory{
             }
             return NULL;
         }
+
+        Player *makePlayer(int x=0, int y=0){
+            return new Player(x, y, map);
+        }
+
+        Dargon *makeDargon(int x=0, int y=0){
+            return new Dargon(x, y, map);
+        }
     private:
         Map *map;
 };
