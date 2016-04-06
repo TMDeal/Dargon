@@ -1,6 +1,5 @@
 #include "Map.hpp"
 #include "BspCallBack.hpp"
-#include <algorithm>
 
 Map::Map(int width, int height)
     :width(width), height(height)
@@ -73,11 +72,8 @@ bool Map::canWalk(int x, int y) const
     if(isWall(x, y)){
         return false;
     }
-    for(Actor **iter = game.actors.begin(); iter != game.actors.end(); iter++){
-        Actor *actor = *iter;
-        if(actor->collides(x, y)){
-            return false;
-        }
+    if(isActorOnTile(x, y)){
+        return false;
     }
     return true;
 }

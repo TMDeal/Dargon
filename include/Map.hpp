@@ -1,6 +1,7 @@
 #ifndef MAP_HPP
 #define MAP_HPP
 
+#include <algorithm>
 #include "libtcod/libtcod.hpp"
 #include "Actor.hpp"
 
