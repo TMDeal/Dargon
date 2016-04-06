@@ -40,7 +40,7 @@ class Map{
         bool canWalk(int x, int y) const;
         void dig(int x1, int y1, int x2, int y2);
         void setActorOnTile(Actor &actor, int x, int y);
-        Actor &getActorOnTile(int x, int y);
+        Actor *getActorOnTile(int x, int y);
         void removeActorOnTile(int x, int y);
         bool isActorOnTile(int x, int y) const;
 
