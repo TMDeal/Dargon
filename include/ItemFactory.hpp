@@ -18,14 +18,14 @@ typedef enum Item_Type{
 class ItemFactory{
     public:
         ItemFactory(Map *map) :map(map) {}
-        Actor *makeItem(Item_Type type, int x, int y){
+        Actor *makeItem(Item_Type type, int x=0, int y=0){
             switch(type){
                 case MISCELLANEOUS:
                     break;
                 case FOOD:
                     break;
                 case POTION:
-                    return new Potion(x, y, POTION, TCODColor::green, map);
+                    return new Potion(x, y, map);
                 case SCROLL:
                     break;
                 case GOLD:
