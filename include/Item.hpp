@@ -9,9 +9,10 @@
 class Item : public Actor{
     public:
         Item(int x, int y, int ch, TCODColor col, Map *map);
-        ~Item();
+        virtual ~Item();
 
         virtual void use(Creature &creature) = 0;
+        void update();
         void interact(Actor &actor);
     private:
         typedef Actor super;

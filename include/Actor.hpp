@@ -8,6 +8,7 @@ class Map;
 class Actor{
     public:
         Actor(int x, int y, int ch, const TCODColor col, Map *map);
+        virtual ~Actor();
 
         bool place(int x, int y);
         bool collides(int x, int y);

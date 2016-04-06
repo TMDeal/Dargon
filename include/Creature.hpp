@@ -8,7 +8,7 @@
 class Creature : public Actor{
     public:
         Creature(int x, int y, int ch, TCODColor col, Map *map);
-        ~Creature();
+        virtual ~Creature();
 
         bool move(Direction dir);
         bool isAlive() const;
