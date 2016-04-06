@@ -13,7 +13,7 @@ Stats::~Stats()
 
 bool Stats::isAlive() const
 {
-    return hp >= 0;
+    return hp > 0;
 }
 
 int Stats::getAttackRoll() const
