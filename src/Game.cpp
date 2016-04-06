@@ -57,10 +57,15 @@ void Game::update()
     }
     gameState = IDLE;
     player->update();
+    gameState = NEW_TURN;
     if(gameState == NEW_TURN){
         for(Actor **iter = actors.begin(); iter != actors.end(); iter++){
             Actor *actor = *iter;
-            if(actor != player){
+            if(!actor->inPlay()){
+                actor->update();
+                removeActor(actor); 
+            }
+            else{
                 actor->update();
             }
         }
@@ -71,7 +76,7 @@ void Game::render()
 {
     TCODConsole::root->clear();
     map->render();
-
+    player->render();
     for(Actor **iter = actors.begin(); iter != actors.end(); iter++){
         Actor *actor = *iter;
         if(actor->isInFov()){
