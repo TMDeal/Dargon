@@ -17,6 +17,7 @@ class Actor{
         void computeFov();
 
         virtual void update() = 0;
+        virtual bool inPlay() const = 0;
         virtual void interact(Actor &actor) = 0;
         void render() const;
 
