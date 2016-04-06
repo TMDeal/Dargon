@@ -1,7 +1,7 @@
 #include "Potion.hpp"
 
-Potion::Potion(int x, int y, int ch, TCODColor col, Map *map)
-    :super(x, y, ch, col, map)
+Potion::Potion(int x, int y, Map *map)
+    :super(x, y, '!', TCODColor::green, map)
 {
     rng = TCODRandom::getInstance();
     type = getType();
