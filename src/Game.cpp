@@ -9,8 +9,7 @@ Game::Game(int screenWidth, int screenHeight)
     TCODSystem::setFps(30);
     map = new Map(80, 50);
     creatureFactory = new CreatureFactory(map);
-    player = creatureFactory->makeCreature(PLAYER, 0, 0);
-    actors.push(player);
+    player = creatureFactory->makePlayer();
     map->generate();
 }
 
@@ -27,9 +26,16 @@ void Game::placeActor(int x, int y, bool playerStart){
     int roomMonsters = rng->getInt(0, MAX_ROOM_MONSTERS);
     if(roomMonsters > 0){
         if(map->canWalk(x, y)){
-            actors.push(creatureFactory->makeCreature(DARGON, x, y));
+            actors.push(creatureFactory->makeDargon(x, y));
         }
         roomMonsters--;
+    }
+}
+
+void Game::removeActor(Actor *actor)
+{
+    if(actors.contains(actor)){
+        actors.remove(actor);
     }
 }
 

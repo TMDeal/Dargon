@@ -23,15 +23,16 @@ class Game{
 
         void createRoom(bool first, int x1, int y1, int x2, int y2);
         void placeActor(int x, int y, bool playerStart=false);
+        void removeActor(Actor *actor);
 
         void update();
         void render();
     private:
-        TCODList<Actor *> actors;
+        TCODList<Actor*> actors;
         TCODRandom *rng;
-        Game_State gameState;
-        Creature *player;
+        Player *player;
         int screenWidth, screenHeight;
+        Game_State gameState;
         Map *map;
         CreatureFactory *creatureFactory;
 };
