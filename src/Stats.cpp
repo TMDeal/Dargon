@@ -47,7 +47,7 @@ void Stats::heal(int healAmount)
     }
 }
 
-void Stats::displayeStats() const
+void Stats::displayStats() const
 {
     printf("Health: %i/%i\n", this->maxHp, this->hp);
 }

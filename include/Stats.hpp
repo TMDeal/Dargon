@@ -15,7 +15,7 @@ class Stats{
         int getDefenseRoll() const;
 
         void levelUp();
-        void displayeStats() const;
+        void displayStats() const;
 
     protected:
         int hp, mp;          // Health and Mana points, respectively

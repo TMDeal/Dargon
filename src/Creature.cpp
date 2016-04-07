@@ -106,5 +106,5 @@ void Creature::heal(int healAmount)
 void Creature::takeDamage(int damage)
 {
     stats->takeDamage(damage);
-    stats->displayeStats();
+    stats->displayStats();
 }
