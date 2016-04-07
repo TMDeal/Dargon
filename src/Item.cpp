@@ -21,5 +21,4 @@ bool Item::inPlay() const
 
 Item::~Item()
 {
-    delete map;
 }

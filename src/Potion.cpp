@@ -9,7 +9,6 @@ Potion::Potion(int x, int y, Map *map)
 
 Potion::~Potion()
 {
-    delete rng;
 }
 
 Potion_Type Potion::getType()

@@ -12,8 +12,6 @@ Map::Map(int width, int height)
 Map::~Map()
 {
     delete[] tiles;
-    delete map;
-    delete bsp;
 }
 
 void Map::generate(){

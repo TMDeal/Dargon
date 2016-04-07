@@ -7,7 +7,6 @@ Creature::Creature(int x, int y, int ch, TCODColor col, Map *map)
 
 Creature::~Creature()
 {
-    delete stats;
 }
 
 void Creature::attack(Creature &defender)
