@@ -16,12 +16,14 @@ void Player::die()
     return;
 }
 
+void Player::getInput(TCOD_key_t input){
+    this->input = input;
+}
+
 void Player::update()
 {
     super::update();
     if(stats->isAlive()){
-        TCOD_key_t input;
-        TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS, &input, NULL);
         switch(input.vk){
             case TCODK_UP:
                 if(move(UP)){

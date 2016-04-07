@@ -9,9 +9,11 @@ class Player : public Creature{
         ~Player();
 
         void update();
+        void getInput(TCOD_key_t input);
         void die();
     private:
         typedef Creature super;
+        TCOD_key_t input;
         //need to create inventory for player
 };
 
