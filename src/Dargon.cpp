@@ -1,4 +1,5 @@
 #include "Dargon.hpp"
+#include <cstdio>
 
 Dargon::Dargon(int x, int y, Map *map)
     : super(x, y, 'D', TCODColor::lightBlue, map)
@@ -9,6 +10,7 @@ Dargon::Dargon(int x, int y, Map *map)
 
 void Dargon::die()
 {
+    printf("Dargon Died\n");
     map->removeActorOnTile(this->x, this->y);
 }
 
