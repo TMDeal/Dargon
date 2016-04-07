@@ -16,7 +16,6 @@ Game::Game(int screenWidth, int screenHeight)
 Game::~Game()
 {
     actors.clearAndDelete();
-    delete map;
 }
 
 void Game::placeActor(int x, int y, bool playerStart){
@@ -62,17 +61,17 @@ void Game::update()
         player->computeFov();
     }
     gameState = IDLE;
+    TCOD_key_t input;
+    TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS, &input, NULL);
+    player->getInput(input);
     player->update();
     gameState = NEW_TURN;
     if(gameState == NEW_TURN){
         for(Actor **iter = actors.begin(); iter != actors.end(); iter++){
             Actor *actor = *iter;
+            actor->update();
             if(!actor->inPlay()){
-                actor->update();
                 removeActor(actor); 
-            }
-            else{
-                actor->update();
             }
         }
     }
