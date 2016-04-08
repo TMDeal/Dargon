@@ -1,6 +1,7 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
+#include <vector>
 #include "libtcod/libtcod.hpp"
 #include "templates_out/projectPaths.h"
 #include "CreatureFactory.hpp"
@@ -15,6 +16,8 @@ typedef enum Game_State{
     DEFEAT,
 }Game_State;
 
+typedef std::vector<Actor*>::iterator ActorsIter;
+
 class Game{
     friend class Map;
     public:
@@ -28,7 +31,7 @@ class Game{
         void update();
         void render();
     private:
-        TCODList<Actor*> actors;
+        std::vector<Actor*> actors;
         TCODRandom *rng;
         Player *player;
         int screenWidth, screenHeight;
