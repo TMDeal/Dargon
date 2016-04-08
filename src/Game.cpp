@@ -1,4 +1,5 @@
 #include "Game.hpp"
+#include <algorithm>
 
 Game::Game(int screenWidth, int screenHeight)
     :screenWidth(screenWidth), screenHeight(screenHeight), gameState(STARTUP)
@@ -15,7 +16,7 @@ Game::Game(int screenWidth, int screenHeight)
 
 Game::~Game()
 {
-    actors.clearAndDelete();
+    actors.clear();
 }
 
 void Game::placeActor(int x, int y, bool playerStart){
@@ -25,17 +26,15 @@ void Game::placeActor(int x, int y, bool playerStart){
     int roomMonsters = rng->getInt(0, MAX_ROOM_MONSTERS);
     if(roomMonsters > 0){
         if(map->canWalk(x, y)){
-            actors.push(creatureFactory->makeDargon(x, y));
+            actors.push_back(creatureFactory->makeDargon(x, y));
         }
         roomMonsters--;
     }
 }
 
-void Game::removeActor(Actor *actor)
+ActorsIter Game::removeActor(Actor *actor)
 {
-    if(actors.contains(actor)){
-        actors.remove(actor);
-    }
+    return actors.erase(std::remove(actors.begin(), actors.end(), actor), actors.end());
 }
 
 void Game::createRoom(bool first, int x1, int y1, int x2, int y2)
@@ -67,11 +66,13 @@ void Game::update()
     player->update();
     gameState = NEW_TURN;
     if(gameState == NEW_TURN){
-        for(Actor **iter = actors.begin(); iter != actors.end(); iter++){
+        for(ActorsIter iter = actors.begin(); iter != actors.end();){
             Actor *actor = *iter;
             actor->update();
             if(!actor->inPlay()){
-                removeActor(actor); 
+                iter = removeActor(actor); 
+            }else{
+                iter++;
             }
         }
     }
@@ -82,7 +83,7 @@ void Game::render()
     TCODConsole::root->clear();
     map->render();
     player->render();
-    for(Actor **iter = actors.begin(); iter != actors.end(); iter++){
+    for(ActorsIter iter = actors.begin(); iter != actors.end(); iter++){
         Actor *actor = *iter;
         if(actor->isInFov()){
             actor->render();
