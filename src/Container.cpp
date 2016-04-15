@@ -1,4 +1,5 @@
 #include "Container.hpp"
+#include <algorithm>
 
 Container::Container(int size)
     :size(size)

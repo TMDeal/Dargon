@@ -1,7 +1,7 @@
 #include "Potion.hpp"
 
-Potion::Potion(int x, int y, Map *map)
-    :super(x, y, '!', TCODColor::green, map)
+Potion::Potion(int x, int y)
+    :super(x, y, '!', TCODColor::green)
 {
     rng = TCODRandom::getInstance();
     type = getType();
@@ -25,7 +25,7 @@ Potion_Type Potion::getType()
     return DUD;
 }
 
-void Potion::use(Creature &drinker)
+void Potion::use(Monster &drinker)
 {
     switch(type){
         case HEALING:

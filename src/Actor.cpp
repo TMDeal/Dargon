@@ -1,41 +1,94 @@
 #include "Actor.hpp"
+#include "Game.hpp"
 
-Actor::Actor(int x, int y, int ch, const TCODColor col, Map *map)
-    : x(x), y(y), ch(ch), col(col)
+Actor::Actor(const Coordinate &pos, int ch, const TCODColor color)
+    : pos(pos), ch(ch), color(color)
 {
-    this->map = map;
-    map->setActorOnTile(*this, this->x, this->y);
+    game.levelMap->setActorOnTile(*this, this->pos.x, this->pos.y);
+}
+
+Actor::Actor(const Coordinate &pos)
+    :pos(pos), ch('@'), color(TCODColor::black)
+{
+    game.levelMap->setActorOnTile(*this, this->pos.x, this->pos.y);
+}
+
+Actor::Actor()
+    : ch('@'), color(TCODColor::black)
+{
+    pos.set(0, 0);
+    game.levelMap->setActorOnTile(*this, this->pos.x, this->pos.y);
+}
+
+bool Actor::isAlive() const
+{
+    return stats.hp > 0;
+}
+
+void Actor::attack(Actor &defender)
+{
+    defender.takeDamage(stats.attack);
+}
+
+void Actor::defend(Actor &attacker)
+{
+}
+
+void Actor::heal(int healAmount)
+{
+    stats.hp += healAmount;
+}
+
+void Actor::takeDamage(int damage)
+{
+    stats.hp -= damage;
 }
 
 Actor::~Actor()
 {
 }
 
+bool Actor::move(Direction dir)
+{
+    int newX = this->pos.x + Directions[dir].x;
+    int newY = this->pos.y + Directions[dir].y;
+
+    if(game.levelMap->canPlace(newX, newY)){
+        game.levelMap->setActorOnTile(*this, newX, newY);
+        game.levelMap->removeActorOnTile(this->pos.x, this->pos.y);
+        pos.set(newX, newY);
+        return true;
+    }
+    else if(game.levelMap->isActorOnTile(newX, newY)){
+        attack(*game.levelMap->getActorOnTile(newX, newY));
+    }
+    return false;
+}
+
 bool Actor::isInFov() const{
-    return map->isInFov(this->x, this->y);
+    return game.levelMap->isInFov(this->pos.x, this->pos.y);
 }
 
 bool Actor::collides(int x, int y){
-    return this->x == x && this->y == y;
+    return this->pos.x == x && this->pos.y == y;
 }
 
 void Actor::computeFov()
 {
-    map->computeFov(this->x, this->y);
+    game.levelMap->computeFov(this->pos.x, this->pos.y);
 }
 
 bool Actor::place(int x, int y){
-    if(map->canWalk(x, y)){
-        map->setActorOnTile(*this, x, y);
-        map->removeActorOnTile(this->x, this->y);
-        this->x = x;
-        this->y = y;
+    if(game.levelMap->canPlace(x, y)){
+        game.levelMap->setActorOnTile(*this, x, y);
+        game.levelMap->removeActorOnTile(this->pos.x, this->pos.y);
+        pos.set(x, y);
         return true;
     }
     return false;
 }
 
 void Actor::render() const {
-    TCODConsole::root->setChar(x, y, ch);
-    TCODConsole::root->setCharForeground(x, y, col);
+    TCODConsole::root->setChar(pos.x, pos.y, ch);
+    TCODConsole::root->setCharForeground(pos.x, pos.y, color);
 }

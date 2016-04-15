@@ -1,25 +1,46 @@
 #include "Monster.hpp"
+#include "Game.hpp"
 
-Monster::Monster(int x, int y, int ch, TCODColor col)
-    : super(x, y, ch, col), name("")
+Monster::Monster()
+    :super(Coordinate(0, 0))
 {
+    TCODRandom *rng = TCODRandom::getInstance();
+    Monster_Type type = static_cast<Monster_Type>(rng->get(0, MAX_MON_TYPES-1));
+    MonsterData data = monsterList[type];
+    init(data);
+}
+
+Monster::Monster(const Coordinate &pos)
+    :super(pos)
+{
+    TCODRandom *rng = TCODRandom::getInstance();
+    Monster_Type type = static_cast<Monster_Type>(rng->get(0, MAX_MON_TYPES-1));
+    MonsterData data = monsterList[type];
+    init(data);
 }
 
 Monster::~Monster()
 {
 }
 
-void Monster::init(Stats monInfo){
-    stats.max_hp = monInfo.max_hp;
-    stats.max_mp = monInfo.max_mp;
-    stats.attack = monInfo.attack;
+void Monster::init(const MonsterData &monInfo){
+    stats.max_hp  = monInfo.max_hp;
+    stats.max_mp  = monInfo.max_mp;
+    stats.hp      = monInfo.hp;
+    stats.mp      = monInfo.mp;
+    stats.attack  = monInfo.attack;
     stats.defense = monInfo.defense;
-    stats.level = monInfo.level;
+    stats.level   = monInfo.level;
+    ch            = monInfo.ch;
+    color         = monInfo.color;
 }
 
 void Monster::update()
 {
-    if(!isAlive()){
+    if(isAlive()){
+        return;
+    }
+    else{
         die();
     }
 }
@@ -27,5 +48,5 @@ void Monster::update()
 void Monster::die()
 {
     printf("Dargon Died\n");
-    actorMap->removeActorOnTile(this->pos.x, this->pos.y);
+    game.levelMap->removeActorOnTile(this->pos.x, this->pos.y);
 }

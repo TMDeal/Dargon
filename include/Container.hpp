@@ -15,7 +15,7 @@ class Container{
         void remove(Actor *actor);
     private:
         std::vector<Actor*> actors;
-        int size;
+        unsigned int size;
 };
 
 #endif /* CONTAINER_HPP */

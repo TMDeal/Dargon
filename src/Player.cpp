@@ -1,14 +1,32 @@
 #include "Player.hpp"
+#include "Game.hpp"
 
-Player::Player(int x, int y, Map *map)
-    : super(x, y, '@', TCODColor::white, map)
+Player::Player(const Coordinate &pos)
+    : super(pos, '@', TCODColor::white)
 {
-    this->stats = new Stats(10, 10, 5, 5);
-    map->setActorOnTile(*this, x, y);
+    game.levelMap->setActorOnTile(*this, pos.x, pos.y);
+    init();
+}
+
+Player::Player()
+    : super(Coordinate(0, 0), '@', TCODColor::white)
+{
+    init();
 }
 
 Player::~Player()
 {
+}
+
+void Player::init()
+{
+    stats.max_hp = 10;
+    stats.max_mp = 10;
+    stats.hp = stats.max_hp;
+    stats.mp = stats.max_mp;
+    stats.attack = 5;
+    stats.defense = 5;
+    stats.level = 1;
 }
 
 void Player::die()
@@ -22,8 +40,7 @@ void Player::getInput(TCOD_key_t input){
 
 void Player::update()
 {
-    super::update();
-    if(stats->isAlive()){
+    if(isAlive()){
         switch(input.vk){
             case TCODK_UP:
                 if(move(UP)){
@@ -50,7 +67,7 @@ void Player::update()
         }
     }
     else{
-        return;
+        die();
     }
 }
 

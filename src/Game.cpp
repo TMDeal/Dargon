@@ -8,15 +8,14 @@ Game::Game(int screenWidth, int screenHeight)
     TCODConsole::initRoot(screenWidth, screenHeight, "Dargon", false);
     rng = TCODRandom::getInstance();
     TCODSystem::setFps(30);
-    map = new Map(80, 50);
-    creatureFactory = new CreatureFactory(map);
-    player = creatureFactory->makePlayer();
-    map->generate();
+    levelMap = new Map(screenWidth, screenHeight);
+    player = new Player();
+    levelMap->generate();
 }
 
 Game::~Game()
 {
-    actors.clear();
+    enemies.clear();
 }
 
 void Game::placeActor(int x, int y, bool playerStart){
@@ -25,8 +24,8 @@ void Game::placeActor(int x, int y, bool playerStart){
     }
     int roomMonsters = rng->getInt(0, MAX_ROOM_MONSTERS);
     if(roomMonsters > 0){
-        if(map->canWalk(x, y)){
-            actors.push_back(creatureFactory->makeDargon(x, y));
+        if(levelMap->canPlace(x, y)){
+            enemies.push_back(new Monster(Coordinate(x, y)));
         }
         roomMonsters--;
     }
@@ -34,12 +33,12 @@ void Game::placeActor(int x, int y, bool playerStart){
 
 ActorsIter Game::removeActor(Actor *actor)
 {
-    return actors.erase(std::remove(actors.begin(), actors.end(), actor), actors.end());
+    return enemies.erase(std::remove(enemies.begin(), enemies.end(), actor), enemies.end());
 }
 
 void Game::createRoom(bool first, int x1, int y1, int x2, int y2)
 {
-    map->dig(x1, y1, x2, y2);
+    levelMap->dig(x1, y1, x2, y2);
     int x;
     int y;
     if(first){
@@ -66,10 +65,10 @@ void Game::update()
     player->update();
     gameState = NEW_TURN;
     if(gameState == NEW_TURN){
-        for(ActorsIter iter = actors.begin(); iter != actors.end();){
+        for(ActorsIter iter = enemies.begin(); iter != enemies.end();){
             Actor *actor = *iter;
             actor->update();
-            if(!actor->inPlay()){
+            if(!actor->isAlive()){
                 iter = removeActor(actor); 
             }else{
                 iter++;
@@ -81,9 +80,9 @@ void Game::update()
 void Game::render()
 {
     TCODConsole::root->clear();
-    map->render();
+    levelMap->render();
     player->render();
-    for(ActorsIter iter = actors.begin(); iter != actors.end(); iter++){
+    for(ActorsIter iter = enemies.begin(); iter != enemies.end(); iter++){
         Actor *actor = *iter;
         if(actor->isInFov()){
             actor->render();

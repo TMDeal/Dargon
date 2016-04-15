@@ -4,22 +4,17 @@
 #include <vector>
 #include "libtcod/libtcod.hpp"
 #include "templates_out/projectPaths.h"
-#include "CreatureFactory.hpp"
+#include "Enums.hpp"
+#include "Coordinates.hpp"
 #include "Actor.hpp"
+#include "Item.hpp"
+#include "Monster.hpp"
+#include "Player.hpp"
 #include "Map.hpp"
-
-typedef enum Game_State{
-    STARTUP,
-    IDLE,
-    NEW_TURN,
-    VICTORY,
-    DEFEAT,
-}Game_State;
 
 typedef std::vector<Actor*>::iterator ActorsIter;
 
 class Game{
-    friend class Map;
     public:
         Game(int screenWidth, int screenHeight);
         ~Game();
@@ -30,15 +25,22 @@ class Game{
 
         void update();
         void render();
-    private:
-        std::vector<Actor*> actors;
+    public:
+        std::vector<Actor*> enemies;
+        std::vector<Item*> items;
         TCODRandom *rng;
         Player *player;
-        int screenWidth, screenHeight;
         Game_State gameState;
-        Map *map;
-        CreatureFactory *creatureFactory;
+        Map *levelMap;
+    private:
+        int screenWidth, screenHeight;
 };
+
+// define some shortcuts from the game
+#define you game.player
+#define gameItems game.items
+#define gameEnemies game.enemies
+
 
 extern Game game;
 

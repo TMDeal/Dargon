@@ -65,7 +65,7 @@ bool Map::isWall(int x, int y) const
     return !map->isWalkable(x, y);
 }
 
-bool Map::canWalk(int x, int y) const
+bool Map::canPlace(int x, int y) const
 {
     if(isWall(x, y)){
         return false;

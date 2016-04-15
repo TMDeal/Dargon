@@ -3,19 +3,13 @@
 
 #include "Item.hpp"
 
-typedef enum Potion_Type{
-    DUD,
-    HEALING,
-    POISON,
-}Potion_Type;
-
 class Potion : public Item{
     public:
-        Potion(int x, int y, Map *map);
+        Potion(int x, int y);
         ~Potion();
 
         Potion_Type getType();
-        void use(Creature &drinker);
+        void use(Monster &drinker);
     private:
         typedef Item super;
         Potion_Type type;

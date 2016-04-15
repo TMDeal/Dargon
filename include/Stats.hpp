@@ -3,25 +3,25 @@
 
 #include <cstdio>
 
-class Stats{
-    public:
-        Stats(int maxHp, int maxMp, int attack, int defense, int level=1);
-        ~Stats();
+struct Stats{
+    int max_hp;
+    int max_mp;
+    int hp;
+    int mp;
+    int attack;
+    int defense;
+    int level;
 
-        void takeDamage(int damage);
-        void heal(int healAmount);
-        bool isAlive() const;
-        int getAttackRoll() const;
-        int getDefenseRoll() const;
+    Stats() : max_hp(1), max_mp(1), hp(max_hp), mp(max_mp), attack(1), defense(1), level(1){};
 
-        void levelUp();
-        void displayStats() const;
+    Stats(int max_hp, int max_mp, int attack, int defense, int level)
+        : max_hp(max_hp), max_mp(max_mp), hp(max_hp),
+        mp(max_mp), attack(attack), defense(defense), level(level){};
 
-    protected:
-        int hp, mp;          // Health and Mana points, respectively
-        int maxHp, maxMp;    // Maximum Health and Mana points, respectively
-        int attack, defense;
-        int level;
+    void displayStats(){
+        printf("LEVEL: %i\n HP: %i/%i\n MP: %i/%i\n ATT: %i\n DEF: %i\n",
+                level, max_hp, hp, max_mp, mp, attack, defense);
+    }
 };
 
 #endif /* STATS_HPP */

@@ -2,30 +2,40 @@
 #define ACTOR_HPP
 
 #include "libtcod/libtcod.hpp"
-#include "Map.hpp"
+#include "Enums.hpp"
+#include "Coordinates.hpp"
+#include "Stats.hpp"
 
-class Map;
 class Actor{
     public:
-        Actor(int x, int y, int ch, const TCODColor col, Map *map);
+        Actor();
+        Actor(const Coordinate &pos);
+        Actor(const Coordinate &pos, int ch, const TCODColor color);
         virtual ~Actor();
 
         bool place(int x, int y);
+        bool move(Direction dir);
+        void attack(Actor &defender);
+        void defend(Actor &attacker);
+        bool isAlive() const;
+
         bool collides(int x, int y);
 
         bool isInFov() const;
         void computeFov();
 
+        void heal(int healAmount);
+        void takeDamage(int damage);
+
         virtual void update() = 0;
-        virtual bool inPlay() const = 0;
-        virtual void interact(Actor &actor) = 0;
+        virtual void die() = 0;
         void render() const;
 
     protected:
-        int x, y;      // X and Y positions of the Actor
         int ch;        // ascii character for Actor as an int
-        Map *map;      // Map for the Actor to reference
-        TCODColor col; // the color of the Actor
+        TCODColor color; // the color of the Actor
+        Coordinate pos;
+        Stats stats;  // Object to define Actor stats
 };
 
 #endif /* ACTOR_HPP */

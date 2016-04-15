@@ -27,6 +27,7 @@ typedef enum Potion_Type{
 
 typedef enum Monster_Type{
     DARGON,
+    MAX_MON_TYPES,
 }Monster_Type;
 
 typedef enum Direction{

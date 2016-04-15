@@ -2,19 +2,20 @@
 #define MONSTER_HPP
 
 #include <string>
-
+#include "Coordinates.hpp"
+#include "Monster-data.hpp"
+#include "Enums.hpp"
 #include "Actor.hpp"
-#include "Map.hpp"
-#include "Stats.hpp"
 
 using std::string;
 
 class Monster : public Actor{
     public:
-        Monster(int x, int y, int ch, TCODColor col);
+        Monster();
+        Monster(const Coordinate &pos);
         ~Monster();
 
-        void init(Stats monInfo);
+        void init(const MonsterData &monInfo);
         void update();
         void die();
     private:

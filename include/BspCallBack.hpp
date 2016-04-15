@@ -7,7 +7,7 @@
 
 class BspCallBack : public ITCODBspCallback{
     public:
-        BspCallBack(Map &map) :map(map), roomNum(0){}
+        BspCallBack(Map &levelMap) :levelMap(levelMap), roomNum(0){}
         bool visitNode(TCODBsp *node, void *userData){
             if(node->isLeaf()){
                 int x, y, w, h;
@@ -19,8 +19,8 @@ class BspCallBack : public ITCODBspCallback{
                 game.createRoom(roomNum == 0, x, y, x+w-1, y+h-1);
 
                 if(roomNum != 0){
-                    map.dig(lastx, lasty, x+w/2, lasty);
-                    map.dig(x+w/2, lasty, x+w/2, y+h/2);
+                    levelMap.dig(lastx, lasty, x+w/2, lasty);
+                    levelMap.dig(x+w/2, lasty, x+w/2, y+h/2);
                 }
                 lastx = x+w/2;
                 lasty = y+h/2;
@@ -30,7 +30,7 @@ class BspCallBack : public ITCODBspCallback{
         }
 
     private:
-        Map &map;
+        Map &levelMap;
         int roomNum;
         int lastx, lasty;
 };

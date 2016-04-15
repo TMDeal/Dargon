@@ -1,18 +1,21 @@
 #ifndef PLAYER_HPP
 #define PLAYER_HPP
 
-#include "Creature.hpp"
+#include "Actor.hpp"
+#include "Coordinates.hpp"
 
-class Player : public Creature{
+class Player : public Actor{
     public:
-        Player(int x, int y, Map *map);
+        Player();
+        Player(const Coordinate &pos);
         ~Player();
 
+        void init();
         void update();
         void getInput(TCOD_key_t input);
         void die();
     private:
-        typedef Creature super;
+        typedef Actor super;
         TCOD_key_t input;
         //need to create inventory for player
 };

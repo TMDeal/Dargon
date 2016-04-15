@@ -2,16 +2,15 @@
 #define ITEM_HPP
 
 #include "libtcod/libtcod.hpp"
-#include "Actor.hpp"
-#include "Creature.hpp"
-#include "Map.hpp"
+#include "Enums.hpp"
+#include "Monster.hpp"
 
-class Item : public Actor{
+class Item{
     public:
-        Item(int x, int y, int ch, TCODColor col, Map *map);
+        Item(int x, int y, int ch, TCODColor col);
         virtual ~Item();
 
-        virtual void use(Creature &creature) = 0;
+        virtual void use(Monster &Monster) = 0;
         bool inPlay() const;
         void update();
         void interact(Actor &actor);
@@ -19,6 +18,9 @@ class Item : public Actor{
         typedef Actor super;
     protected:
         bool hasBeenPicked;
+        int ch;
+        TCODColor col;
+        Coordinate pos;
 };
 
 #endif /* ITEM_HPP */
