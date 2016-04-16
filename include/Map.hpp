@@ -14,7 +14,9 @@ static const int FOVRADIUS = 10;
 struct Tile{
     bool explored;
     Actor *actor;
-    Tile() : explored(false), actor(NULL){}
+    Tile_Flag flag;
+
+    Tile() : explored(false), actor(NULL), flag(SAFE){}
 };
 
 class Map{
@@ -26,6 +28,7 @@ class Map{
         bool isWall(int x, int y) const;
         bool canPlace(int x, int y) const;
         void dig(int x1, int y1, int x2, int y2);
+        void setTileFlag(int x, int y, Tile_Flag newFlag);
         void setActorOnTile(Actor &actor, int x, int y);
         Actor *getActorOnTile(int x, int y);
         void removeActorOnTile(int x, int y);
