@@ -5,43 +5,74 @@
 #include "libtcod/libtcod.hpp"
 #include "templates_out/projectPaths.h"
 #include "Enums.hpp"
-#include "Coordinates.hpp"
 #include "Actor.hpp"
-#include "Item.hpp"
-#include "Monster.hpp"
 #include "Player.hpp"
+#include "Monster.hpp"
+#include "Item.hpp"
 #include "Map.hpp"
 
-typedef std::vector<Actor*>::iterator ActorsIter;
+typedef std::vector<Monster*>::iterator MonsterIter;
+typedef std::vector<Item*>::iterator ItemIter;
 
-class Game{
-    public:
-        Game(int screenWidth, int screenHeight);
-        ~Game();
+typedef struct Environment{
+    std::vector<Monster*> monsters;
+    std::vector<Item*> items;
+    TCODRandom *rng;
+    Game_State gameState;
+    Map *levelMap;
+}Environment;
 
-        void createRoom(bool first, int x1, int y1, int x2, int y2);
-        void placeActor(int x, int y, bool playerStart=false);
-        ActorsIter removeActor(Actor *actor);
+#define gameState env.gameState
 
-        void update();
-        void render();
-    public:
-        std::vector<Actor*> enemies;
-        std::vector<Item*> items;
-        TCODRandom *rng;
-        Player *player;
-        Game_State gameState;
-        Map *levelMap;
-    private:
-        int screenWidth, screenHeight;
-};
+extern Environment env;
 
-// define some shortcuts from the game
-#define you game.player
-#define gameItems game.items
-#define gameEnemies game.enemies
+namespace Game{
+    static void init(int screenWidth, int screenHeight)
+    {
+        gameState = STARTUP;
+        TCODConsole::setCustomFont((getResPath() + "terminal.png").c_str());
+        TCODConsole::initRoot(screenWidth, screenHeight, "Dargon", false);
+        TCODSystem::setFps(30);
+        env.levelMap = new Map(screenWidth, screenHeight);
+        env.levelMap->generate();
+        you->computeFov();
+    }
 
+    static void update()
+    {
+        gameState = IDLE;
+        TCOD_key_t input;
+        TCODSystem::checkForEvent(TCOD_EVENT_KEY_PRESS, &input, NULL);
+        you->getInput(input);
+        you->update();
+        gameState = NEW_TURN;
+        if(gameState == NEW_TURN){
+            for(MonsterIter iter = env.monsters.begin(); iter != env.monsters.end();){
+                Monster *monster = *iter;
+                monster->update();
+                if(!monster->isAlive()){
+                    iter = env.monsters.erase(std::remove(
+                                env.monsters.begin(), env.monsters.end(), monster), env.monsters.end());
+                }
+                else{
+                    iter++;
+                }
+            }
+        }
+    }
 
-extern Game game;
+    static void render()
+    {
+        TCODConsole::root->clear();
+        env.levelMap->render();
+        you->render();
+        for(MonsterIter iter = env.monsters.begin(); iter != env.monsters.end(); iter++){
+            Monster *monster = *iter;
+            if(monster->isInFov()){
+                monster->render();
+            }
+        }
+    }
+}
 
 #endif /* GAME_HPP */
