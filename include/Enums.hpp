@@ -30,6 +30,13 @@ typedef enum Monster_Type{
     MAX_MON_TYPES,
 }Monster_Type;
 
+typedef enum Tile_Flag{
+    SAFE,
+    HAS_MONSTER,
+    HAS_PLAYER,
+    HAS_ITEM,
+}Tile_Flag;
+
 typedef enum Direction{
     UP,
     UP_RIGHT,
