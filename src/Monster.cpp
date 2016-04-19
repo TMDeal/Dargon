@@ -37,10 +37,38 @@ void Monster::init(const MonsterData &monInfo){
     color         = monInfo.color;
 }
 
+bool Monster::place(int x, int y){
+    if(game.levelMap->canPlace(x, y)){
+        game.tiles[x][y].flag = HAS_MONSTER;
+        game.tiles[this->x][this->y].flag = SAFE;
+        this->x = x;
+        this->y = y;
+        return true;
+    }
+    return false;
+}
+
 void Monster::update()
 {
     if(isAlive()){
-        return;
+        if(this->isInFov()){
+            printf("I SEE YOU\n");
+            int dx = game.player->x - this->x;
+            int dy = game.player->y - this->y;
+            float distance = sqrtf(dx*dx + dy*dy);
+            if(distance >= 2){
+                printf("I CHASE YOU\n");
+                dx = (int)(round(dx/distance)) + this->x;
+                dy = (int)(round(dy/distance)) + this->y;
+                if(game.levelMap->canPlace(dx, dy)){
+                    printf("I MOVE TO YOU\n");
+                    game.tiles[this->x][this->y].flag = SAFE;
+                    this->x = dx;
+                    this->y = dy;
+                    game.tiles[dx][dy].flag = HAS_MONSTER;
+                }
+            }
+        }
     }
     else{
         die();
