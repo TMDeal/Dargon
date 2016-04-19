@@ -1,23 +1,19 @@
 #include "Actor.hpp"
 #include "Game.hpp"
 
-Actor::Actor(const Coordinate &pos, int ch, const TCODColor color)
-    : pos(pos), ch(ch), color(color)
+Actor::Actor(int x, int y, int ch, const TCODColor color)
+    : x(x), y(y), ch(ch), color(color)
 {
-    game.levelMap->setActorOnTile(*this, this->pos.x, this->pos.y);
 }
 
-Actor::Actor(const Coordinate &pos)
-    :pos(pos), ch('@'), color(TCODColor::black)
+Actor::Actor(int x, int y)
+    : x(x), y(y), ch('@'), color(TCODColor::black)
 {
-    game.levelMap->setActorOnTile(*this, this->pos.x, this->pos.y);
 }
 
 Actor::Actor()
-    : ch('@'), color(TCODColor::black)
+    : x(0), y(0), ch('@'), color(TCODColor::black)
 {
-    pos.set(0, 0);
-    game.levelMap->setActorOnTile(*this, this->pos.x, this->pos.y);
 }
 
 bool Actor::isAlive() const
@@ -50,45 +46,36 @@ Actor::~Actor()
 
 bool Actor::move(Direction dir)
 {
-    int newX = this->pos.x + Directions[dir].x;
-    int newY = this->pos.y + Directions[dir].y;
+    int newX = this->x + Directions[dir].x;
+    int newY = this->y + Directions[dir].y;
 
     if(game.levelMap->canPlace(newX, newY)){
-        game.levelMap->setActorOnTile(*this, newX, newY);
-        game.levelMap->removeActorOnTile(this->pos.x, this->pos.y);
-        pos.set(newX, newY);
+        game.tiles[newX][newY].flag = HAS_PLAYER;
+        game.tiles[this->x][this->y].flag = SAFE;
+        this->x = newX;
+        this->y = newY;
         return true;
     }
-    else if(game.levelMap->isActorOnTile(newX, newY)){
-        attack(*game.levelMap->getActorOnTile(newX, newY));
+    else if(game.tiles[newX][newY].flag == HAS_MONSTER){
+        return false;
     }
     return false;
 }
 
 bool Actor::isInFov() const{
-    return game.levelMap->isInFov(this->pos.x, this->pos.y);
+    return game.levelMap->isInFov(this->x, this->y);
 }
 
 bool Actor::collides(int x, int y){
-    return this->pos.x == x && this->pos.y == y;
+    return this->x == x && this->y == y;
 }
 
 void Actor::computeFov()
 {
-    game.levelMap->computeFov(this->pos.x, this->pos.y);
-}
-
-bool Actor::place(int x, int y){
-    if(game.levelMap->canPlace(x, y)){
-        game.levelMap->setActorOnTile(*this, x, y);
-        game.levelMap->removeActorOnTile(this->pos.x, this->pos.y);
-        pos.set(x, y);
-        return true;
-    }
-    return false;
+    game.levelMap->computeFov(this->x, this->y);
 }
 
 void Actor::render() const {
-    TCODConsole::root->setChar(pos.x, pos.y, ch);
-    TCODConsole::root->setCharForeground(pos.x, pos.y, color);
+    TCODConsole::root->setChar(this->x, this->y, ch);
+    TCODConsole::root->setCharForeground(this->x, this->y, color);
 }

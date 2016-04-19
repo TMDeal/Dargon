@@ -9,8 +9,8 @@
 class Actor{
     public:
         Actor();
-        Actor(const Coordinate &pos);
-        Actor(const Coordinate &pos, int ch, const TCODColor color);
+        Actor(int x, int y);
+        Actor(int x, int y, int ch, const TCODColor color);
         virtual ~Actor();
 
         bool place(int x, int y);
@@ -31,10 +31,11 @@ class Actor{
         virtual void die() = 0;
         void render() const;
 
+    public:
+        int x, y;
     protected:
         int ch;        // ascii character for Actor as an int
         TCODColor color; // the color of the Actor
-        Coordinate pos;
         Stats stats;  // Object to define Actor stats
 };
 
