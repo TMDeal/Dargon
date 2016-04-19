@@ -13,7 +13,7 @@ class Actor{
         Actor(int x, int y, int ch, const TCODColor color);
         virtual ~Actor();
 
-        bool place(int x, int y);
+        virtual bool place(int x, int y) = 0;
         bool move(Direction dir);
         void attack(Actor &defender);
         void defend(Actor &attacker);
