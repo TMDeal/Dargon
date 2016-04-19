@@ -4,14 +4,12 @@
 Map::Map(int width, int height)
     :width(width), height(height)
 {
-    tiles = new Tile[width*height];
     map = new TCODMap(width, height);
     bsp = new TCODBsp(0, 0, width, height);
 }
 
 Map::~Map()
 {
-    delete[] tiles;
 }
 
 void Map::generate(){
@@ -21,35 +19,15 @@ void Map::generate(){
     bsp->traverseInvertedLevelOrder(&callBack, NULL);
 }
 
-void Map::setActorOnTile(Actor &actor, int x, int y)
-{
-    tiles[x+y*width].actor = &actor;
-}
-
-Actor *Map::getActorOnTile(int x, int y)
-{
-    return tiles[x+y*width].actor;
-}
-
-void Map::removeActorOnTile(int x, int y)
-{
-    tiles[x+y*width].actor = NULL;
-}
-
-bool Map::isActorOnTile(int x, int y) const
-{
-    return tiles[x+y*width].actor != NULL;
-}
-
 bool Map::isExplored(int x, int y) const
 {
-    return tiles[x+y*width].explored;
+    return game.tiles[x][y].explored;
 }
 
 bool Map::isInFov(int x, int y) const
 {
     if(map->isInFov(x, y)){
-        tiles[x+y*width].explored = true;
+        game.tiles[x][y].explored = true;
         return true;
     }
     return false;
@@ -70,7 +48,7 @@ bool Map::canPlace(int x, int y) const
     if(isWall(x, y)){
         return false;
     }
-    if(isActorOnTile(x, y)){
+    if(game.tiles[x][y].flag != SAFE){
         return false;
     }
     return true;
