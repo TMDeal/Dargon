@@ -12,10 +12,11 @@ using std::string;
 class Monster : public Actor{
     public:
         Monster();
-        Monster(const Coordinate &pos);
+        Monster(int x, int y);
         ~Monster();
 
         void init(const MonsterData &monInfo);
+        bool place(int x, int y);
         void update();
         void die();
     private:

@@ -2,17 +2,19 @@
 #include "Game.hpp"
 
 Monster::Monster()
-    :super(Coordinate(0, 0))
+    :super(0, 0)
 {
+    game.tiles[this->x][this->y].flag = HAS_MONSTER;
     TCODRandom *rng = TCODRandom::getInstance();
     Monster_Type type = static_cast<Monster_Type>(rng->get(0, MAX_MON_TYPES-1));
     MonsterData data = monsterList[type];
     init(data);
 }
 
-Monster::Monster(const Coordinate &pos)
-    :super(pos)
+Monster::Monster(int x, int y)
+    :super(x, y)
 {
+    game.tiles[this->x][this->y].flag = HAS_MONSTER;
     TCODRandom *rng = TCODRandom::getInstance();
     Monster_Type type = static_cast<Monster_Type>(rng->get(0, MAX_MON_TYPES-1));
     MonsterData data = monsterList[type];
@@ -48,5 +50,5 @@ void Monster::update()
 void Monster::die()
 {
     printf("Dargon Died\n");
-    game.levelMap->removeActorOnTile(this->pos.x, this->pos.y);
+    game.tiles[this->x][this->y].flag = SAFE;
 }
