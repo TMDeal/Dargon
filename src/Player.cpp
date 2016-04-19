@@ -35,36 +35,56 @@ void Player::die()
     return;
 }
 
+bool Player::place(int x, int y){
+    if(game.levelMap->canPlace(x, y)){
+        game.tiles[x][y].flag = HAS_PLAYER;
+        game.tiles[this->x][this->y].flag = SAFE;
+        this->x = x;
+        this->y = y;
+        return true;
+    }
+    return false;
+}
+
+
 void Player::getInput(TCOD_key_t input){
     this->input = input;
 }
 
 void Player::update()
 {
+    bool moved = false;
     if(isAlive()){
         switch(input.vk){
             case TCODK_UP:
                 if(move(UP)){
+                    moved = true;
                     computeFov();
                 }
                 break;
             case TCODK_DOWN:
                 if(move(DOWN)){
+                    moved = true;
                     computeFov();
                 }
                 break;
             case TCODK_LEFT:
                 if(move(LEFT)){
+                    moved = true;
                     computeFov();
                 }
                 break;
             case TCODK_RIGHT:
                 if(move(RIGHT)){
+                    moved = true;
                     computeFov();
                 }
                 break;
             default:
                 break;
+        }
+        if(moved){
+            game.gameState = NEW_TURN;
         }
     }
     else{
