@@ -7,11 +7,12 @@
 class Player : public Actor{
     public:
         Player();
-        Player(const Coordinate &pos);
+        Player(int x, int y);
         ~Player();
 
         void init();
         void update();
+        bool place(int x, int y);
         void getInput(TCOD_key_t input);
         void die();
     private:

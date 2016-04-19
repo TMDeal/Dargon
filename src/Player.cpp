@@ -1,16 +1,17 @@
 #include "Player.hpp"
 #include "Game.hpp"
 
-Player::Player(const Coordinate &pos)
-    : super(pos, '@', TCODColor::white)
+Player::Player(int x, int y)
+    : super(x, y, '@', TCODColor::white)
 {
-    game.levelMap->setActorOnTile(*this, pos.x, pos.y);
+    game.tiles[this->x][this->y].flag = HAS_PLAYER;
     init();
 }
 
 Player::Player()
-    : super(Coordinate(0, 0), '@', TCODColor::white)
+    : super(0, 0, '@', TCODColor::white)
 {
+    game.tiles[this->x][this->y].flag = HAS_PLAYER;
     init();
 }
 
