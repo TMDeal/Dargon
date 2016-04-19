@@ -1,9 +1,8 @@
 #include "Item.hpp"
 
 Item::Item(int x, int y, int ch, TCODColor col)
-    :ch(ch), col(col)
+    :x(x), y(y), ch(ch), col(col)
 {
-    pos.set(x, y);
 }
 
 void Item::interact(Actor &actor)

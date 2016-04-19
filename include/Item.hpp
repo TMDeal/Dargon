@@ -14,13 +14,14 @@ class Item{
         bool inPlay() const;
         void update();
         void interact(Actor &actor);
+    public:
+        int x, y;
     private:
         typedef Actor super;
     protected:
         bool hasBeenPicked;
         int ch;
         TCODColor col;
-        Coordinate pos;
 };
 
 #endif /* ITEM_HPP */
