@@ -1,5 +1,6 @@
 #include "Monster.hpp"
 #include "Game.hpp"
+#include "PathCallBack.hpp"
 
 Monster::Monster()
     :super(0, 0)
@@ -52,22 +53,9 @@ void Monster::update()
 {
     if(this->isAlive()){
         if(this->isInFov()){
-            printf("I SEE YOU\n");
-            int dx = game.player->x - this->x;
-            int dy = game.player->y - this->y;
-            float distance = sqrtf(dx*dx + dy*dy);
-            if(distance >= 2){
-                printf("I CHASE YOU\n");
-                dx = (int)(round(dx/distance)) + this->x;
-                dy = (int)(round(dy/distance)) + this->y;
-                if(game.levelMap->canPlace(dx, dy)){
-                    printf("I MOVE TO YOU\n");
-                    game.tiles[this->x][this->y].flag = SAFE;
-                    this->x = dx;
-                    this->y = dy;
-                    game.tiles[dx][dy].flag = HAS_MONSTER;
-                }
-            }
+            game.levelMap->computePath(this->x, this->y, game.player->x, game.player->y);
+            game.levelMap->walkPath(this->x, this->y);
+            game.tiles[this->x][this->y].flag = HAS_MONSTER;
         }
     }
     else{
