@@ -26,15 +26,15 @@ Monster::~Monster()
 }
 
 void Monster::init(const MonsterData &monInfo){
-    stats.max_hp  = monInfo.max_hp;
-    stats.max_mp  = monInfo.max_mp;
-    stats.hp      = monInfo.hp;
-    stats.mp      = monInfo.mp;
-    stats.attack  = monInfo.attack;
-    stats.defense = monInfo.defense;
-    stats.level   = monInfo.level;
-    ch            = monInfo.ch;
-    color         = monInfo.color;
+    this->max_hp  = monInfo.max_hp;
+    this->max_mp  = monInfo.max_mp;
+    this->hp      = monInfo.max_hp;
+    this->mp      = monInfo.max_mp;
+    this->att     = monInfo.attack;
+    this->def     = monInfo.defense;
+    this->level   = monInfo.level;
+    this->ch      = monInfo.ch;
+    this->color   = monInfo.color;
 }
 
 bool Monster::place(int x, int y){
@@ -50,7 +50,7 @@ bool Monster::place(int x, int y){
 
 void Monster::update()
 {
-    if(isAlive()){
+    if(this->isAlive()){
         if(this->isInFov()){
             printf("I SEE YOU\n");
             int dx = game.player->x - this->x;
