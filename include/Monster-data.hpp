@@ -14,13 +14,12 @@ typedef struct MonsterData{
     int ch;
 
     int max_hp, max_mp;
-    int hp, mp;
     int attack, defense;
     int level;
 }MonsterData;
 
 const static MonsterData monsterList[] = {
-    {"Dargon", {0, 0, 255}, 'D', 10, 10, 10, 10, 5, 5, 1},
+    {"Dargon", {0, 0, 255}, 'D', 10, 10, 5, 5, 1},
 };
 
 #endif /* MONSTER_DATA_HPP */
