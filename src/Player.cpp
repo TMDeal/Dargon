@@ -97,6 +97,49 @@ void Player::update()
                     computeFov();
                 }
                 break;
+            case TCODK_CHAR:
+                switch(input.c){
+                    case 'h':
+                        if(moveOrAttack(LEFT)){
+                            computeFov();
+                        }
+                        break;
+                    case 'j':
+                        if(moveOrAttack(DOWN)){
+                            computeFov();
+                        }
+                        break;
+                    case 'k':
+                        if(moveOrAttack(UP)){
+                            computeFov();
+                        }
+                        break;
+                    case 'l':
+                        if(moveOrAttack(RIGHT)){
+                            computeFov();
+                        }
+                        break;
+                    case 'y':
+                        if(moveOrAttack(UP_LEFT)){
+                            computeFov();
+                        }
+                        break;
+                    case 'u':
+                        if(moveOrAttack(UP_RIGHT)){
+                            computeFov();
+                        }
+                        break;
+                    case 'b':
+                        if(moveOrAttack(DOWN_LEFT)){
+                            computeFov();
+                        }
+                        break;
+                    case 'n':
+                        if(moveOrAttack(DOWN_RIGHT)){
+                            computeFov();
+                        }
+                        break;
+                }
             default:
                 break;
         }
