@@ -1,5 +1,6 @@
 #include "Player.hpp"
 #include "Game.hpp"
+#include "Monster.hpp"
 
 Player::Player(int x, int y)
     : super(x, y, '@', TCODColor::white)
@@ -50,7 +51,7 @@ bool Player::moveOrAttack(Direction dir)
     }
     else if(game.tiles[newX][newY].flag == HAS_MONSTER){
         game.gameState = NEW_TURN;
-        Monster &mon = game.findMonster(newX, newY);
+        Monster &mon = game.find<Monster>(game.monsters, newX, newY);
         attack(mon);
     }
     return false;
