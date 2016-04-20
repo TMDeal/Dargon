@@ -28,7 +28,7 @@ class Map{
         void render() const;
     private:
         int width, height;
-        TCODMap *map;
+        TCODMap *Tmap;
         TCODBsp *bsp;
 };
 

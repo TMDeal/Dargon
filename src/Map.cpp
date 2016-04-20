@@ -4,7 +4,7 @@
 Map::Map(int width, int height)
     :width(width), height(height)
 {
-    map = new TCODMap(width, height);
+    Tmap = new TCODMap(width, height);
     bsp = new TCODBsp(0, 0, width, height);
 }
 
@@ -26,7 +26,7 @@ bool Map::isExplored(int x, int y) const
 
 bool Map::isInFov(int x, int y) const
 {
-    if(map->isInFov(x, y)){
+    if(Tmap->isInFov(x, y)){
         game.tiles[x][y].explored = true;
         return true;
     }
@@ -35,12 +35,12 @@ bool Map::isInFov(int x, int y) const
 
 void Map::computeFov(int x, int y)
 {
-    map->computeFov(x, y, FOVRADIUS);
+    Tmap->computeFov(x, y, FOVRADIUS);
 }
 
 bool Map::isWall(int x, int y) const
 {
-    return !map->isWalkable(x, y);
+    return !Tmap->isWalkable(x, y);
 }
 
 bool Map::canPlace(int x, int y) const
@@ -65,7 +65,7 @@ void Map::dig(int x1, int y1, int x2, int y2)
 
     for(int tilex = x1; tilex <= x2; tilex++){
         for(int tiley = y1; tiley <= y2; tiley++){
-            map->setProperties(tilex, tiley, true, true);
+            Tmap->setProperties(tilex, tiley, true, true);
         }
     }
 }
