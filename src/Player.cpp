@@ -35,6 +35,27 @@ void Player::die()
     return;
 }
 
+bool Player::moveOrAttack(Direction dir)
+{
+    int newX = this->x + Directions[dir].x;
+    int newY = this->y + Directions[dir].y;
+
+    if(game.levelMap->canPlace(newX, newY)){
+        game.gameState = NEW_TURN;
+        game.tiles[newX][newY].flag = HAS_PLAYER;
+        game.tiles[this->x][this->y].flag = SAFE;
+        this->x = newX;
+        this->y = newY;
+        return true;
+    }
+    else if(game.tiles[newX][newY].flag == HAS_MONSTER){
+        game.gameState = NEW_TURN;
+        Monster &mon = game.findMonster(newX, newY);
+        attack(mon);
+    }
+    return false;
+}
+
 bool Player::place(int x, int y){
     if(game.levelMap->canPlace(x, y)){
         game.tiles[x][y].flag = HAS_PLAYER;
@@ -53,38 +74,30 @@ void Player::getInput(TCOD_key_t input){
 
 void Player::update()
 {
-    bool moved = false;
     if(isAlive()){
         switch(input.vk){
             case TCODK_UP:
-                if(move(UP)){
-                    moved = true;
+                if(moveOrAttack(UP)){
                     computeFov();
                 }
                 break;
             case TCODK_DOWN:
-                if(move(DOWN)){
-                    moved = true;
+                if(moveOrAttack(DOWN)){
                     computeFov();
                 }
                 break;
             case TCODK_LEFT:
-                if(move(LEFT)){
-                    moved = true;
+                if(moveOrAttack(LEFT)){
                     computeFov();
                 }
                 break;
             case TCODK_RIGHT:
-                if(move(RIGHT)){
-                    moved = true;
+                if(moveOrAttack(RIGHT)){
                     computeFov();
                 }
                 break;
             default:
                 break;
-        }
-        if(moved){
-            game.gameState = NEW_TURN;
         }
     }
     else{
