@@ -21,13 +21,13 @@ Player::~Player()
 
 void Player::init()
 {
-    stats.max_hp = 10;
-    stats.max_mp = 10;
-    stats.hp = stats.max_hp;
-    stats.mp = stats.max_mp;
-    stats.attack = 5;
-    stats.defense = 5;
-    stats.level = 1;
+    this->max_hp = 10;
+    this->max_mp = 10;
+    this->hp     = max_hp;
+    this->mp     = max_mp;
+    this->att    = 5;
+    this->def    = 5;
+    this->level  = 1;
 }
 
 void Player::die()
