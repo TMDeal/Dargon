@@ -18,12 +18,12 @@ Actor::Actor()
 
 bool Actor::isAlive() const
 {
-    return stats.hp > 0;
+    return hp > 0;
 }
 
 void Actor::attack(Actor &defender)
 {
-    defender.takeDamage(stats.attack);
+    defender.takeDamage(this->att);
 }
 
 void Actor::defend(Actor &attacker)
@@ -32,12 +32,12 @@ void Actor::defend(Actor &attacker)
 
 void Actor::heal(int healAmount)
 {
-    stats.hp += healAmount;
+    this->hp += healAmount;
 }
 
 void Actor::takeDamage(int damage)
 {
-    stats.hp -= damage;
+    this->hp -= damage;
 }
 
 Actor::~Actor()

@@ -4,7 +4,6 @@
 #include "libtcod/libtcod.hpp"
 #include "Enums.hpp"
 #include "Coordinates.hpp"
-#include "Stats.hpp"
 
 class Actor{
     public:
@@ -35,8 +34,12 @@ class Actor{
         int x, y;
     protected:
         int ch;        // ascii character for Actor as an int
+        int max_hp, hp;
+        int max_mp, mp;
+        int att;
+        int def;
+        int level;
         TCODColor color; // the color of the Actor
-        Stats stats;  // Object to define Actor stats
 };
 
 #endif /* ACTOR_HPP */
