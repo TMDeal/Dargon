@@ -21,18 +21,6 @@ Game::~Game()
 {
 }
 
-template<class T>
-typename vector<T>::iterator Game::findAtCoordinate(std::vector<T*> objs, const int &x, const int &y){
-    return std::find_if(objs.begin(), objs.end(), [&](const T &obj){
-            return obj.x == x && obj.y == y;
-            });
-}
-
-template<class T>
-typename vector<T>::iterator Game::remove(std::vector<T*> objs, T obj){
-    return objs.erase(std::remove(objs.begin(), objs.end(), obj), objs.end());
-}
-
 void Game::update()
 {
     gameState = IDLE;

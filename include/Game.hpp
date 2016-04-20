@@ -28,13 +28,20 @@ class Game{
         Game(int screenWidth, int screenHeight);
         ~Game();
 
-        template<class T>
-        typename vector<T>::iterator findAtCoordinate(vector<T*> objs, const int &x, const int &y);
-        template<class T>
-        typename vector<T>::iterator remove(vector<T*> objs, T obj);
-
         void update();
         void render();
+
+        template<class T>
+        T& find(vector<T*> objs, const int &x, const int &y){
+            return **std::find_if(objs.begin(), objs.end(), [&](const T *obj){
+                    return obj->x == x && obj->y == y;
+                    });
+        }
+
+        template<class T>
+        typename vector<T*>::iterator remove(vector<T*> objs, T *obj){
+            return objs.erase(std::remove(objs.begin(), objs.end(), obj), objs.end());
+        }
     public:
         Map *levelMap;
         Tile **tiles;
