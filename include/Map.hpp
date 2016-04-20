@@ -25,10 +25,14 @@ class Map{
         bool isExplored(int x, int y) const;
         void computeFov(int x, int y);
 
+        void computePath(int fromX, int fromY, int toX, int toY);
+        void walkPath(int &fromX, int &fromY);
+
         void render() const;
     private:
         int width, height;
         TCODMap *Tmap;
+        TCODDijkstra *path;
         TCODBsp *bsp;
 };
 

@@ -1,10 +1,13 @@
 #include "Map.hpp"
+#include "PathCallBack.hpp"
 #include "BspCallBack.hpp"
 
 Map::Map(int width, int height)
     :width(width), height(height)
 {
     Tmap = new TCODMap(width, height);
+    // path = new TCODDijkstra(width, height, new PathCallBack(), NULL);
+    path = new TCODDijkstra(Tmap);
     bsp = new TCODBsp(0, 0, width, height);
 }
 
@@ -17,6 +20,23 @@ void Map::generate(){
     bsp->splitRecursive(NULL, 8, ROOM_MAX_SIZE, ROOM_MAX_SIZE, 1.5f, 1.5f);
     BspCallBack callBack(*this);
     bsp->traverseInvertedLevelOrder(&callBack, NULL);
+}
+
+void Map::computePath(int fromX, int fromY, int toX, int toY)
+{
+    path->compute(fromX, fromY);
+    path->setPath(toX, toY);
+}
+
+void Map::walkPath(int &fromX, int &fromY)
+{
+    game.tiles[fromX][fromY].flag = SAFE;
+    int x, y;
+    path->walk(&x, &y);
+    if(this->canPlace(x, y)){
+        fromX = x;
+        fromY = y;
+    }
 }
 
 bool Map::isExplored(int x, int y) const
