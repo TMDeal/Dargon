@@ -44,24 +44,6 @@ Actor::~Actor()
 {
 }
 
-bool Actor::move(Direction dir)
-{
-    int newX = this->x + Directions[dir].x;
-    int newY = this->y + Directions[dir].y;
-
-    if(game.levelMap->canPlace(newX, newY)){
-        game.tiles[newX][newY].flag = HAS_PLAYER;
-        game.tiles[this->x][this->y].flag = SAFE;
-        this->x = newX;
-        this->y = newY;
-        return true;
-    }
-    else if(game.tiles[newX][newY].flag == HAS_MONSTER){
-        return false;
-    }
-    return false;
-}
-
 bool Actor::isInFov() const{
     return game.levelMap->isInFov(this->x, this->y);
 }
