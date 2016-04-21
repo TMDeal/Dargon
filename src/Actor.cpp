@@ -1,3 +1,5 @@
+#include <sstream>
+
 #include "Actor.hpp"
 #include "Game.hpp"
 
@@ -38,6 +40,13 @@ void Actor::heal(int healAmount)
 void Actor::takeDamage(int damage)
 {
     this->hp -= damage;
+}
+
+std::string Actor::getInfo()
+{
+    std::stringstream streem;
+    streem << name << " LVL: " << level;
+    return streem.str();
 }
 
 Actor::~Actor()

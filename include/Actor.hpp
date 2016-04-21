@@ -1,6 +1,8 @@
 #ifndef ACTOR_HPP
 #define ACTOR_HPP
 
+#include <string>
+
 #include "libtcod/libtcod.hpp"
 #include "Enums.hpp"
 #include "Coordinates.hpp"
@@ -13,11 +15,11 @@ class Actor{
         virtual ~Actor();
 
         virtual bool place(int x, int y) = 0;
-        bool move(Direction dir);
         void attack(Actor &defender);
         void defend(Actor &attacker);
         bool isAlive() const;
 
+        std::string getInfo();
         bool collides(int x, int y);
 
         bool isInFov() const;
@@ -33,6 +35,7 @@ class Actor{
     public:
         int x, y;
     protected:
+        std::string name;
         int ch;        // ascii character for Actor as an int
         int max_hp, hp;
         int max_mp, mp;
