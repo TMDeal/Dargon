@@ -43,9 +43,9 @@ void Game::update()
 
 void Game::render()
 {
+    gui->render();
     levelMap->render();
     player->render();
-    gui->render();
     for(MonsterIter iter = monsters.begin(); iter != monsters.end(); iter++){
         Monster *monster = *iter;
         if(monster->isInFov()){
