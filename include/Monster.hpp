@@ -1,7 +1,6 @@
 #ifndef MONSTER_HPP
 #define MONSTER_HPP
 
-#include <string>
 #include "Coordinates.hpp"
 #include "Monster-data.hpp"
 #include "Enums.hpp"
@@ -21,7 +20,6 @@ class Monster : public Actor{
         void die();
     private:
         typedef Actor super;
-        string name;
 };
 
 #endif /* MONSTER_HPP */
