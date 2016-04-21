@@ -44,6 +44,23 @@ void Gui::addLog(const TCODColor &col, std::string fmt, ...)
     }while(lineEnd);
 }
 
+void Gui::renderBar(int x, int y, std::string name, float value, float maxValue, 
+        const TCODColor &barColor, const TCODColor &backColor)
+{
+    con->setDefaultBackground(backColor);
+    con->rect(x, y, BAR_WIDTH, 1, false, TCOD_BKGND_SET);
+
+    int barFillWidth = static_cast<int>(value / maxValue * BAR_WIDTH);
+    if(barFillWidth > 0){
+        con->setDefaultBackground(barColor);
+        con->rect(x, y, barFillWidth, 1, false, TCOD_BKGND_SET);
+    }
+
+    con->setDefaultForeground(TCODColor::white);
+    con->printEx(x+BAR_WIDTH/2, y, TCOD_BKGND_NONE, TCOD_CENTER,
+            "%s: %g/%g", name.c_str(), value, maxValue);
+}
+
 void Gui::renderMouseLook()
 {
     if(!game.levelMap->isInFov(game.mouse.cx, game.mouse.cy)){
@@ -87,6 +104,7 @@ void Gui::render()
     TCODConsole::root->clear();
     con->clear();
     renderLog();
+    game.player->displayStats();
     renderMouseLook();
     TCODConsole::blit(con, 0, 0, screenWidth, PANEL_HEIGHT,
             TCODConsole::root, 0, screenHeight - PANEL_HEIGHT);

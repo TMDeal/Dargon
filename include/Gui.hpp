@@ -25,6 +25,8 @@ class Gui{
         void render();
         void renderLog();
         void renderMouseLook();
+        void renderBar(int x, int y, std::string name, float value, float maxValue, 
+                const TCODColor &barColor, const TCODColor &backColor);
         void addLog(const TCODColor &col, std::string fmt, ...);
 
         const static int PANEL_HEIGHT = 7;
