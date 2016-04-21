@@ -82,7 +82,9 @@ void Gui::renderLog()
 
 void Gui::render()
 {
+    TCODConsole::root->setDefaultBackground(TCODColor::black);
     con->setDefaultBackground(TCODColor::black);
+    TCODConsole::root->clear();
     con->clear();
     renderLog();
     renderMouseLook();

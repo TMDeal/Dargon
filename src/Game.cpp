@@ -43,8 +43,6 @@ void Game::update()
 
 void Game::render()
 {
-    TCODConsole::root->setDefaultBackground(TCODColor::black);
-    TCODConsole::root->clear();
     levelMap->render();
     player->render();
     gui->render();
