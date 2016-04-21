@@ -46,6 +46,9 @@ bool Map::isExplored(int x, int y) const
 
 bool Map::isInFov(int x, int y) const
 {
+    if(x < 0 || x >= width || y < 0 || y >= height){
+        return false;
+    }
     if(Tmap->isInFov(x, y)){
         game.tiles[x][y].explored = true;
         return true;
