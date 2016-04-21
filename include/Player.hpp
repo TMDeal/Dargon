@@ -15,7 +15,7 @@ class Player : public Actor{
         void update();
         bool moveOrAttack(Direction dir);
         bool place(int x, int y);
-        void getInput(TCOD_key_t input);
+        void displayStats() const;
         void die();
     private:
         typedef Actor super;

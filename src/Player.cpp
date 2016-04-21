@@ -58,6 +58,14 @@ bool Player::moveOrAttack(Direction dir)
     return false;
 }
 
+void Player::displayStats() const
+{
+    game.gui->renderBar(1, 1, "HP", this->hp, this->max_hp,
+            TCODColor::lightRed, TCODColor::darkerRed);
+    game.gui->renderBar(1, 2, "MP", this->mp, this->max_mp,
+            TCODColor::lightBlue, TCODColor::darkerBlue);
+}
+
 bool Player::place(int x, int y){
     if(game.levelMap->canPlace(x, y)){
         game.tiles[x][y].flag = HAS_PLAYER;
