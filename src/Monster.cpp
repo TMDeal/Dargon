@@ -27,6 +27,7 @@ Monster::~Monster()
 }
 
 void Monster::init(const MonsterData &monInfo){
+    this->name    = monInfo.name;
     this->max_hp  = monInfo.max_hp;
     this->max_mp  = monInfo.max_mp;
     this->hp      = monInfo.max_hp;
@@ -65,6 +66,6 @@ void Monster::update()
 
 void Monster::die()
 {
-    printf("Dargon Died\n");
+    game.gui->addLog(TCODColor::lightGrey, "%s Died", name.c_str());
     game.tiles[this->x][this->y].flag = SAFE;
 }
