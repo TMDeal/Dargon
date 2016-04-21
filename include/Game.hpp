@@ -10,6 +10,7 @@
 #include "Monster.hpp"
 #include "Item.hpp"
 #include "Map.hpp"
+#include "Gui.hpp"
 
 using std::vector;
 
@@ -47,10 +48,11 @@ class Game{
         Tile **tiles;
         Game_State gameState;
         Player *player;
+        Gui *gui;
+        TCOD_key_t input;
+        TCOD_mouse_t mouse;
         std::vector<Monster*> monsters;
         std::vector<Item*> items;
-    private:
-        int screenWidth, screenHeight;
 };
 
 extern Game game;
