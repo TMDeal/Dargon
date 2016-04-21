@@ -22,6 +22,7 @@ Player::~Player()
 
 void Player::init()
 {
+    this->name   = "Rogue";
     this->max_hp = 10;
     this->max_mp = 10;
     this->hp     = max_hp;
@@ -69,14 +70,10 @@ bool Player::place(int x, int y){
 }
 
 
-void Player::getInput(TCOD_key_t input){
-    this->input = input;
-}
-
 void Player::update()
 {
     if(isAlive()){
-        switch(input.vk){
+        switch(game.input.vk){
             case TCODK_UP:
                 if(moveOrAttack(UP)){
                     computeFov();
@@ -98,7 +95,7 @@ void Player::update()
                 }
                 break;
             case TCODK_CHAR:
-                switch(input.c){
+                switch(game.input.c){
                     case 'h':
                         if(moveOrAttack(LEFT)){
                             computeFov();
