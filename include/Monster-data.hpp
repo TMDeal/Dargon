@@ -5,7 +5,6 @@
 
 #include "libtcod/libtcod.hpp"
 #include "libtcod/color.hpp"
-#include "Enums.hpp"
 #include "Coordinates.hpp"
 
 typedef struct MonsterData{
@@ -17,6 +16,11 @@ typedef struct MonsterData{
     int attack, defense;
     int level;
 }MonsterData;
+
+typedef enum Monster_Type{
+    DARGON,
+    MAX_MON_TYPES,
+}Monster_Type;
 
 const static MonsterData monsterList[] = {
     {"Dargon", {0, 0, 255}, 'D', 10, 10, 5, 5, 1},

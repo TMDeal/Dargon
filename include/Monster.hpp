@@ -3,7 +3,6 @@
 
 #include "Coordinates.hpp"
 #include "Monster-data.hpp"
-#include "Enums.hpp"
 #include "Actor.hpp"
 
 using std::string;
@@ -15,11 +14,12 @@ class Monster : public Actor{
         ~Monster();
 
         void init(const MonsterData &monInfo);
-        bool place(int x, int y);
+        bool place(int newX, int newY);
         void update();
         void die();
     private:
         typedef Actor super;
+        Monster_Type type;
 };
 
 #endif /* MONSTER_HPP */

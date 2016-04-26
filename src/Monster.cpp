@@ -1,13 +1,13 @@
 #include "Monster.hpp"
 #include "Game.hpp"
-#include "PathCallBack.hpp"
 
 Monster::Monster()
     :super(0, 0)
 {
-    game.tiles[this->x][this->y].flag = HAS_MONSTER;
+    game.tiles[x][y].flag.set(HAS_MONSTER);
+    game.tiles[x][y].flag.reset(SAFE);
     TCODRandom *rng = TCODRandom::getInstance();
-    Monster_Type type = static_cast<Monster_Type>(rng->get(0, MAX_MON_TYPES-1));
+    type = static_cast<Monster_Type>(rng->get(0, MAX_MON_TYPES-1));
     MonsterData data = monsterList[type];
     init(data);
 }
@@ -15,7 +15,8 @@ Monster::Monster()
 Monster::Monster(int x, int y)
     :super(x, y)
 {
-    game.tiles[this->x][this->y].flag = HAS_MONSTER;
+    game.tiles[x][y].flag.set(HAS_MONSTER);
+    game.tiles[x][y].flag.reset(SAFE);
     TCODRandom *rng = TCODRandom::getInstance();
     Monster_Type type = static_cast<Monster_Type>(rng->get(0, MAX_MON_TYPES-1));
     MonsterData data = monsterList[type];
@@ -39,12 +40,14 @@ void Monster::init(const MonsterData &monInfo){
     this->color   = monInfo.color;
 }
 
-bool Monster::place(int x, int y){
-    if(game.levelMap->canPlace(x, y)){
-        game.tiles[x][y].flag = HAS_MONSTER;
-        game.tiles[this->x][this->y].flag = SAFE;
-        this->x = x;
-        this->y = y;
+bool Monster::place(int newX, int newY){
+    if(game.levelMap->canPlace(newX, newY)){
+        game.tiles[newX][newY].flag.set(HAS_MONSTER);
+        game.tiles[newX][newY].flag.reset(SAFE);
+        game.tiles[x][y].flag.set(SAFE);
+        game.tiles[x][y].flag.reset(HAS_MONSTER);
+        x = newX;
+        y = newY;
         return true;
     }
     return false;
@@ -54,9 +57,21 @@ void Monster::update()
 {
     if(this->isAlive()){
         if(this->isInFov()){
-            game.levelMap->computePath(this->x, this->y, game.player->x, game.player->y);
-            game.levelMap->walkPath(this->x, this->y);
-            game.tiles[this->x][this->y].flag = HAS_MONSTER;
+            game.levelMap->computePath(x, y, game.player->x, game.player->y);
+            int newX, newY;
+            if(game.levelMap->walkPath(newX, newY)){
+                if(game.tiles[newX][newY].flag.test(HAS_PLAYER)){
+                    return;
+                }
+                else{
+                    game.tiles[x][y].flag.reset(HAS_MONSTER);
+                    game.tiles[x][y].flag.set(SAFE);
+                    x = newX;
+                    y = newY;
+                    game.tiles[x][y].flag.set(HAS_MONSTER);
+                    game.tiles[x][y].flag.reset(SAFE);
+                }
+            }
         }
     }
     else{
@@ -67,5 +82,6 @@ void Monster::update()
 void Monster::die()
 {
     game.gui->addLog(TCODColor::lightGrey, "%s Died", name.c_str());
-    game.tiles[this->x][this->y].flag = SAFE;
+    game.tiles[x][y].flag.reset(HAS_MONSTER);
+    game.tiles[x][y].flag.set(SAFE);
 }

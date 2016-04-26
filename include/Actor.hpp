@@ -4,7 +4,6 @@
 #include <string>
 
 #include "libtcod/libtcod.hpp"
-#include "Enums.hpp"
 #include "Coordinates.hpp"
 
 class Actor{
@@ -16,7 +15,7 @@ class Actor{
 
         virtual bool place(int x, int y) = 0;
         void attack(Actor &defender);
-        void defend(Actor &attacker);
+        void defend(int damage);
         bool isAlive() const;
 
         std::string getInfo();
@@ -34,8 +33,8 @@ class Actor{
 
     public:
         int x, y;
-    protected:
         std::string name;
+    protected:
         int ch;        // ascii character for Actor as an int
         int max_hp, hp;
         int max_mp, mp;

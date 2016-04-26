@@ -3,12 +3,12 @@
 
 #include <algorithm>
 #include "libtcod/libtcod.hpp"
-#include "Enums.hpp"
 #include "Actor.hpp"
 
 static const int ROOM_MAX_SIZE = 12;
 static const int ROOM_MIN_SIZE = 6;
-static const int MAX_ROOM_MONSTERS = 3;
+static const int MAX_ROOM_MONSTERS = 2;
+static const int MAX_ROOM_ITEMS = 2;
 static const int FOVRADIUS = 10;
 
 class Map{
@@ -26,7 +26,7 @@ class Map{
         void computeFov(int x, int y);
 
         void computePath(int fromX, int fromY, int toX, int toY);
-        void walkPath(int &fromX, int &fromY);
+        bool walkPath(int &fromX, int &fromY);
 
         void render() const;
     private:

@@ -2,20 +2,25 @@
 #define CONTAINER_HPP
 
 #include <vector>
-#include "Actor.hpp"
+#include "Item.hpp"
 
-typedef std::vector<Actor*>::iterator ActorIter;
+typedef std::vector<Item*>::iterator ItemIter;
 
 class Container{
     public:
-        Container(int size);
+        Container();
         ~Container();
 
-        void add(Actor *actor);
-        void remove(Actor *actor);
+        void printToConsole(TCODConsole &con);
+        void add(Item *item);
+        void remove(Item *item);
+        int size() const;
+        int full() const;
+        Item* at(int index);
     private:
-        std::vector<Actor*> actors;
-        unsigned int size;
+        std::vector<Item*> contents;
+        unsigned int actualSize;
+        unsigned int maxSize;
 };
 
 #endif /* CONTAINER_HPP */

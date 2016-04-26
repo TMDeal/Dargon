@@ -6,6 +6,18 @@ typedef struct Coordinate{
     int y;
 }Coordinate;
 
+typedef enum Direction{
+    UP,
+    UP_RIGHT,
+    RIGHT,
+    DOWN_RIGHT,
+    DOWN,
+    DOWN_LEFT,
+    LEFT,
+    UP_LEFT,
+    STAY,
+}Direction;
+
 const struct Coordinate Directions[9]={
     {0, -1},  //UP
     {1, -1},  //UP-RIGHT

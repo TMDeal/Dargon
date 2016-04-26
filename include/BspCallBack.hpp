@@ -3,6 +3,7 @@
 
 #include "libtcod/libtcod.hpp"
 #include "Game.hpp"
+#include "Usable.hpp"
 #include "Map.hpp"
 
 class BspCallBack : public ITCODBspCallback{
@@ -28,19 +29,6 @@ class BspCallBack : public ITCODBspCallback{
             return true;
         }
 
-        void placeActor(int x, int y, bool playerStart=false){
-            if(playerStart){
-                game.player->place(x, y);
-            }
-            int roomMonsters = rng->getInt(0, MAX_ROOM_MONSTERS);
-            if(roomMonsters > 0){
-                if(levelMap.canPlace(x, y)){
-                    game.monsters.push_back(new Monster(x, y));
-                }
-                roomMonsters--;
-            }
-        }
-
         void createRoom(bool first, int x1, int y1, int x2, int y2)
         {
             levelMap.dig(x1, y1, x2, y2);
@@ -49,12 +37,33 @@ class BspCallBack : public ITCODBspCallback{
             if(first){
                 x = (x1 + x2) / 2;
                 y = (y1 + y2) / 2;
-                placeActor(x, y, first);
+                game.player->place(x, y);
             }
             else{
-                x = rng->getInt(x1, x2);
-                y = rng->getInt(y1, y2);
-                placeActor(x, y);
+                int roomMonsters = rng->getInt(0, MAX_ROOM_MONSTERS);
+                int roomItems = rng->getInt(0, MAX_ROOM_ITEMS);
+                while(roomMonsters > 0){
+                    while(true){
+                        x = rng->getInt(x1, x2);
+                        y = rng->getInt(y1, y2);
+                        if(levelMap.canPlace(x, y)){
+                            game.monsters.push_back(new Monster(x, y));
+                            break;
+                        }
+                    }
+                    roomMonsters--;
+                }
+                while(roomItems > 0){
+                    while(true){
+                        x = rng->getInt(x1, x2);
+                        y = rng->getInt(y1, y2);
+                        if(levelMap.canPlace(x, y) && !game.tiles[x][y].flag.test(HAS_ITEM)){
+                            game.items.push_back(new Usable(x, y));
+                            break;
+                        }
+                    }
+                    roomItems--;
+                }
             }
         }
 

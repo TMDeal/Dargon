@@ -1,18 +1,19 @@
 #include "Map.hpp"
-#include "PathCallBack.hpp"
 #include "BspCallBack.hpp"
 
 Map::Map(int width, int height)
     :width(width), height(height)
 {
     Tmap = new TCODMap(width, height);
-    // path = new TCODDijkstra(width, height, new PathCallBack(), NULL);
     path = new TCODDijkstra(Tmap);
     bsp = new TCODBsp(0, 0, width, height);
 }
 
 Map::~Map()
 {
+    delete Tmap;
+    delete path;
+    delete bsp;
 }
 
 void Map::generate(){
@@ -28,15 +29,16 @@ void Map::computePath(int fromX, int fromY, int toX, int toY)
     path->setPath(toX, toY);
 }
 
-void Map::walkPath(int &fromX, int &fromY)
+bool Map::walkPath(int &fromX, int &fromY)
 {
-    game.tiles[fromX][fromY].flag = SAFE;
     int x, y;
     path->walk(&x, &y);
-    if(this->canPlace(x, y)){
+    if(canPlace(x, y)){
         fromX = x;
         fromY = y;
+        return true;
     }
+    return false;
 }
 
 bool Map::isExplored(int x, int y) const
@@ -71,7 +73,7 @@ bool Map::canPlace(int x, int y) const
     if(isWall(x, y)){
         return false;
     }
-    if(game.tiles[x][y].flag != SAFE){
+    if(!game.tiles[x][y].flag.test(SAFE)){
         return false;
     }
     return true;

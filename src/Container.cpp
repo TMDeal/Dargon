@@ -1,23 +1,58 @@
 #include "Container.hpp"
+#include "Gui.hpp"
 #include <algorithm>
 
-Container::Container(int size)
-    :size(size)
+Container::Container()
+    : maxSize(28), actualSize(0)
 {
 }
 
 Container::~Container()
 {
+    contents.clear();
 }
 
-void Container::add(Actor *actor)
+void Container::printToConsole(TCODConsole &con)
 {
-    if(actors.size() < size){
-        actors.push_back(actor);
+    con.setDefaultBackground(TCODColor::white);
+    int shortcut = 'a';
+    int y = 1;
+    if(actualSize != 0){
+        for(ItemIter iter = contents.begin(); iter != contents.end(); iter++){
+            Item *item = *iter;
+            con.print(2, y, "(%c) %s", shortcut, item->name.c_str());
+            y++;
+            shortcut++;
+        }
     }
 }
 
-void Container::remove(Actor *actor)
+void Container::add(Item *item)
 {
-    actors.erase(std::remove(actors.begin(), actors.end(), actor), actors.end());
+    if(contents.size() < maxSize){
+        contents.push_back(item);
+        actualSize++;
+    }
+}
+
+int Container::size() const
+{
+    return actualSize;
+}
+
+int Container::full() const
+{
+    return actualSize == maxSize;
+}
+
+Item* Container::at(int index)
+{
+    return contents.at(index);
+}
+
+
+void Container::remove(Item *item)
+{
+    contents.erase(std::remove(contents.begin(), contents.end(), item), contents.end());
+    actualSize--;
 }

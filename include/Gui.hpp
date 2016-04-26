@@ -4,9 +4,9 @@
 #include <vector>
 #include <string>
 #include <cstdarg>
-#include <cstring>
 
 #include "libtcod/libtcod.hpp"
+#include "Container.hpp"
 
 typedef struct Message{
     std::string text;
@@ -25,6 +25,7 @@ class Gui{
         void render();
         void renderLog();
         void renderMouseLook();
+        void renderContainerMenu(Container &Container);
         void renderBar(int x, int y, std::string name, float value, float maxValue, 
                 const TCODColor &barColor, const TCODColor &backColor);
         void addLog(const TCODColor &col, std::string fmt, ...);
@@ -33,9 +34,12 @@ class Gui{
         const static int BAR_WIDTH = 20;
         const static int MSG_X=BAR_WIDTH+2;
         const static int MSG_HEIGHT=PANEL_HEIGHT-1;
+        static const int INVENTORY_WIDTH = 50;
+        static const int INVENTORY_HEIGHT = 28;
 
     private:
-        TCODConsole *con;
+        TCODConsole *statusPanel;
+        TCODConsole *inventory;
         int screenWidth, screenHeight;
         std::vector<Message*> logs;
 };

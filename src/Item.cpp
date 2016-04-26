@@ -1,23 +1,35 @@
 #include "Item.hpp"
+#include "Game.hpp"
 
-Item::Item(int x, int y, int ch, TCODColor col)
-    :x(x), y(y), ch(ch), col(col)
+Item::Item()
+    : x(0), y(0), beenPicked(false), name("")
 {
+    game.tiles[x][y].flag.set(HAS_ITEM);
 }
 
-void Item::interact(Actor &actor)
+Item::Item(int x, int y)
+    : x(x), y(y), beenPicked(false), name("")
 {
+    game.tiles[x][y].flag.set(HAS_ITEM);
 }
 
-void Item::update()
+bool Item::isInFov() const{
+    return game.levelMap->isInFov(this->x, this->y);
+}
+
+bool Item::pick()
 {
+    beenPicked = true;
+    game.removeItem(this);
+    game.tiles[x][y].flag.reset(HAS_ITEM);
 }
 
 bool Item::inPlay() const
 {
-    return !hasBeenPicked;
+    return !beenPicked;
 }
 
 Item::~Item()
 {
 }
+

@@ -25,21 +25,36 @@ bool Actor::isAlive() const
 
 void Actor::attack(Actor &defender)
 {
-    defender.takeDamage(this->att);
+    int damage;
+    damage = this->att;
+    defender.defend(damage);
+    if(damage != 0){
+        game.gui->addLog(TCODColor::lightGrey, "%s attacks for %i damage", name.c_str(), damage);
+    }
+    else{
+        game.gui->addLog(TCODColor::lightGrey, "%s fails to damage %s", name.c_str(), defender.name.c_str());
+    }
 }
 
-void Actor::defend(Actor &attacker)
+void Actor::defend(int damage)
 {
-}
-
-void Actor::heal(int healAmount)
-{
-    this->hp += healAmount;
+    takeDamage(damage);
 }
 
 void Actor::takeDamage(int damage)
 {
-    this->hp -= damage;
+    hp -= damage;
+}
+
+void Actor::heal(int healAmount)
+{
+    if(hp == max_hp){
+        return;
+    }
+    hp += healAmount;
+    if(hp > max_hp){
+        hp = max_hp;
+    }
 }
 
 std::string Actor::getInfo()

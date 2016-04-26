@@ -2,7 +2,8 @@
 #define PLAYER_HPP
 
 #include "Actor.hpp"
-#include "Enums.hpp"
+#include "Item.hpp"
+#include "Container.hpp"
 #include "Coordinates.hpp"
 
 class Player : public Actor{
@@ -14,12 +15,15 @@ class Player : public Actor{
         void init();
         void update();
         bool moveOrAttack(Direction dir);
-        bool place(int x, int y);
+        void handleSpecialKey(int key);
+        Item* useInventory();
+        void pickup(Item *item);
+        bool place(int newX, int newY);
         void displayStats() const;
         void die();
     private:
         typedef Actor super;
-        TCOD_key_t input;
+        Container *inventory;
         //need to create inventory for player
 };
 

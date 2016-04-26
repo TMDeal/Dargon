@@ -1,27 +1,47 @@
 #ifndef ITEM_HPP
 #define ITEM_HPP
 
+#include <string>
+
 #include "libtcod/libtcod.hpp"
-#include "Enums.hpp"
-#include "Monster.hpp"
+#include "Effect.hpp"
+
+typedef enum Usable_Type{
+    FOOD,
+    POTION,
+    SCROLL,
+    MAX_USABLE_TYPES,
+}Item_Type;
+
+typedef enum Armor_Type{
+    MAX_ARMOR_TYPE,
+}Armor_Type;
+
+typedef enum Weapon_Type{
+    MAX_WEAPON_TYPE,
+}Weapon_Type;
 
 class Item{
+    friend class Container;
     public:
-        Item(int x, int y, int ch, TCODColor col);
+        Item(int x, int y);
+        Item();
         virtual ~Item();
 
-        virtual void use(Monster &Monster) = 0;
+        bool isInFov() const;
+
+        bool pick();
         bool inPlay() const;
-        void update();
-        void interact(Actor &actor);
+        virtual void use(Actor &actor) = 0;
+        virtual void render() = 0;
     public:
         int x, y;
-    private:
-        typedef Actor super;
+        std::string name;
     protected:
-        bool hasBeenPicked;
+        bool beenPicked;
         int ch;
         TCODColor col;
+        Effect *effect;
 };
 
 #endif /* ITEM_HPP */

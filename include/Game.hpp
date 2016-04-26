@@ -2,9 +2,9 @@
 #define GAME_HPP
 
 #include <vector>
+#include <bitset>
 #include "libtcod/libtcod.hpp"
 #include "templates_out/projectPaths.h"
-#include "Enums.hpp"
 #include "Actor.hpp"
 #include "Player.hpp"
 #include "Monster.hpp"
@@ -17,11 +17,26 @@ using std::vector;
 typedef std::vector<Monster*>::iterator MonsterIter;
 typedef std::vector<Item*>::iterator ItemIter;
 
+typedef enum Game_State{
+    STARTUP,
+    IDLE,
+    NEW_TURN,
+    VICTORY,
+    DEFEAT,
+}Game_State;
+
+typedef enum Tile_Flag{
+    SAFE,
+    HAS_MONSTER,
+    HAS_PLAYER,
+    HAS_ITEM,
+}Tile_Flag;
+
 struct Tile{
     bool explored;
-    Tile_Flag flag;
+    std::bitset<4> flag;
 
-    Tile() : explored(false), flag(SAFE){}
+    Tile() : explored(false), flag("0001"){}
 };
 
 class Game{
@@ -32,17 +47,10 @@ class Game{
         void update();
         void render();
 
-        template<class T>
-        T& find(vector<T*> objs, const int &x, const int &y){
-            return **std::find_if(objs.begin(), objs.end(), [&](const T *obj){
-                    return obj->x == x && obj->y == y;
-                    });
-        }
-
-        template<class T>
-        typename vector<T*>::iterator remove(vector<T*> objs, T *obj){
-            return objs.erase(std::remove(objs.begin(), objs.end(), obj), objs.end());
-        }
+        Item* findItem(const int &x, const int &y);
+        Monster* findMonster(const int &x, const int &y);
+        ItemIter removeItem(Item *item);
+        MonsterIter removeMonster(Monster *mon);
     public:
         Map *levelMap;
         Tile **tiles;
