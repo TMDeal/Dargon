@@ -1,17 +1,8 @@
-#include "libtcod/libtcod.hpp"
-#include "Game.hpp"
-
-const static int SCREEN_WIDTH = 80;
-const static int SCREEN_HEIGHT = 50;
-
-Game game(SCREEN_WIDTH, SCREEN_HEIGHT);
+#include <iostream>
+#include <SDL2pp/SDL2pp.hh>
 
 int main(int argc, char *argv[])
 {
-    while(!TCODConsole::isWindowClosed()){
-        game.update();
-        game.render();
-        TCODConsole::flush();
-    }
+    std::cout << "DARGONS COMING SOON!" << std::endl;
     return 0;
 }

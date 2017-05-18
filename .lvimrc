@@ -1,0 +1,1 @@
+let g:ale_cpp_clang_options.=' -I/usr/include/SDL2 -I./third_party/libSDL2pp -I./third_party/jsoncpp/include'
