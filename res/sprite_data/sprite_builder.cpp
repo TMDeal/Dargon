@@ -72,21 +72,19 @@ int main(int argc, char *argv[])
 {
     Json::StyledWriter json_writer;
 
-    for(auto file : DATA_FILES) {
-        Json::Value root;
-        std::ifstream in_file(file + ".dat");
-        std::ofstream out_file(file + ".json");
+    Json::Value root;
+    std::ifstream in_file(argv[1]);
+    std::ofstream out_file(argv[2]);
 
-        if(in_file.is_open()) {
-            getSizeData(root, in_file);
-            getTypeData(root, in_file);
-            getSpriteData(root, in_file);
-        }
-
-        out_file << json_writer.write(root);
-        in_file.close();
-        out_file.close();
+    if(in_file.is_open()) {
+        getSizeData(root, in_file);
+        getTypeData(root, in_file);
+        getSpriteData(root, in_file);
     }
+
+    out_file << json_writer.write(root);
+    in_file.close();
+    out_file.close();
 
     return EXIT_SUCCESS;
 }

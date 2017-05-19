@@ -1,7 +1,7 @@
-tiles-per-row 18
-tiles-per-col 14
-tile-width 16
-tile-height 16
+row-size 18
+col-size 14
+width 16
+height 16
 
 types Actor,World,Device,Gui,Usable,Equipment,Symbol
 

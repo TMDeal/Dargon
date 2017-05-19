@@ -1,7 +1,7 @@
-tiles-per-row 18
-tiles-per-col 6
-tile-width 8
-tile-height 16
+row-size 18
+col-size 6
+width 8
+height 16
 
 types Number,Letter,Symbol
 
