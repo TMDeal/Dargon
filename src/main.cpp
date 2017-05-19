@@ -1,8 +1,15 @@
 #include <iostream>
-#include <SDL2pp/SDL2pp.hh>
+#include "system.hpp"
 
 int main(int argc, char *argv[])
 {
-    std::cout << "DARGONS COMING SOON!" << std::endl;
-    return 0;
+    System sys;
+
+    while(sys.running()) {
+        sys.handleEvents();
+        sys.update();
+        sys.draw();
+    }
+
+    return EXIT_SUCCESS;
 }
