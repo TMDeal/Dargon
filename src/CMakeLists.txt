@@ -1,7 +1,7 @@
 file(GLOB SOURCE_FILES ./*.cpp)
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
-add_dependencies(${PROJECT_NAME} sprites)
+add_dependencies(${PROJECT_NAME} sprite_builder)
 
 target_link_libraries(
     ${PROJECT_NAME}
