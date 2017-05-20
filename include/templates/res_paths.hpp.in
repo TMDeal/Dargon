@@ -3,7 +3,7 @@
 
 #include <string>
 
-static const std::string RES_DIRECTORY = "@SOURCE_DIR@/res/";
-static const std::string SPRITE_DATA_DIRECTORY = "@SOURCE_DIR@/res/sprite_data/";
+static const std::string RES_DIRECTORY = "@RES_DIR@/";
+static const std::string SPRITE_DATA_DIRECTORY = "@SPRITE_DATA_DIR@/";
 
 #endif /* RES_PATHS_HPP */
