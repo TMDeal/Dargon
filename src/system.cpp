@@ -14,8 +14,9 @@ System::System(const Config& config)
             MIX_DEFAULT_CHANNELS, 4096),
     m_window("Dargon", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
             m_config.screen_width, m_config.screen_height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE),
-    m_renderer(m_window, -1, SDL_RENDERER_ACCELERATED)
-{}
+    m_renderer(m_window, -1, SDL_RENDERER_ACCELERATED),
+    m_sprite_sheet(m_renderer, "sprites")
+{ }
 
 void System::handleEvents() {
     SDL_Event event;
@@ -35,7 +36,8 @@ void System::update() {
 }
 
 void System::draw() {
-    m_renderer.SetDrawColor(0, 0, 255).Clear().Present();
+    m_renderer.SetDrawColor(0, 0, 0).Clear();
+    m_renderer.Present();
 }
 
 bool System::running() const {

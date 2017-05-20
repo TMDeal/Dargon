@@ -9,18 +9,21 @@
 #include <SDL2pp/Renderer.hh>
 
 #include "config.hpp"
+#include "sprite.hpp"
 
 class System {
     private:
         bool m_running;
         Config m_config;
+
         SDL2pp::SDL m_sdl;
         SDL2pp::SDLImage m_sdl_image;
         SDL2pp::SDLTTF m_sdl_ttf;
         SDL2pp::Mixer m_mixer;
-
         SDL2pp::Window m_window;
         SDL2pp::Renderer m_renderer;
+
+        SpriteSheet m_sprite_sheet;
     public:
         System(const Config& config);
 
