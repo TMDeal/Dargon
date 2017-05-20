@@ -47,7 +47,7 @@ void getTypeData(Json::Value& root, std::ifstream& file) {
 void getSpriteData(Json::Value& root, std::ifstream& file) {
     int i = 0;
     std::string line, index, token;
-    int sprites_per_row = root.get("row-size", 0).asInt();
+    int sprites_per_row = root.get("sprites-per-row", 0).asInt();
 
     while(getline(file, line)) {
         if(line.empty()) {
@@ -63,8 +63,10 @@ void getSpriteData(Json::Value& root, std::ifstream& file) {
             type = token;
         }
 
-        root["sprites"][type][index]["x"] = i % sprites_per_row;
-        root["sprites"][type][index]["y"] = 0 + (i / sprites_per_row);
+        root["sprites"][index]["x"] = i % sprites_per_row;
+        root["sprites"][index]["y"] = 0 + (i / sprites_per_row);
+        root["sprites"][index]["type"] = type;
+        i++;
     }
 }
 
