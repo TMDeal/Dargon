@@ -2,6 +2,7 @@ project(Dargon)
 cmake_minimum_required(VERSION 2.8)
 
 set(SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+set(RES_DIR ${SOURCE_DIR}/res)
 
 if (${CMAKE_CXX_COMPILER_ID} STREQUAL "GNU" OR ${CMAKE_CXX_COMPILER_ID} STREQUAL "Clang")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -Wextra -pedantic -std=c++1y")
