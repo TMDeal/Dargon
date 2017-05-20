@@ -1,7 +1,7 @@
-row-size 18
-col-size 14
-width 16
-height 16
+sprites-per-row 18
+sprites-per-col 14
+sprite-width 16
+sprite-height 16
 
 types Actor,World,Device,Gui,Usable,Equipment,Symbol
 
