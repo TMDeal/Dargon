@@ -7,3 +7,6 @@ bin/
 include/res_paths.hpp
 res/sprite_data/fonts.json
 res/sprite_data/sprites.json
+
+# Config files
+res/Dargon.json
