@@ -1,0 +1,9 @@
+#ifndef RES_PATHS_HPP
+#define RES_PATHS_HPP
+
+#include <string>
+
+static const std::string RES_DIRECTORY = "@SOURCE_DIR@/res/";
+static const std::string SPRITE_DATA_DIRECTORY = "@SOURCE_DIR@/res/sprite_data/";
+
+#endif /* RES_PATHS_HPP */

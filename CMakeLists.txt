@@ -22,4 +22,5 @@ include_directories(SYSTEM ${SDL2PP_INCLUDE_DIRS})
 include_directories(SYSTEM ${JSONCPP_INCLUDE_DIR})
 
 add_subdirectory(res/sprite_data)
+add_subdirectory(include)
 add_subdirectory(src)
