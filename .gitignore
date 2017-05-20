@@ -2,3 +2,8 @@ build/
 bin/
 .clang
 .lvimrc
+
+# Generated files
+include/res_paths.hpp
+res/sprite_data/fonts.json
+res/sprite_data/sprites.json
