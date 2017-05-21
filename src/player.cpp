@@ -15,7 +15,9 @@ Player::Player(const std::string& name, const Sprite& sprite, const Point& coord
 
 Player::~Player() = default;
 
-void Player::update(Optional<SDL_Event> event) {
+bool Player::update(Optional<SDL_Event> event) {
+    bool updated = true;
+
     if(event) {
         switch(event->key.keysym.sym) {
             case SDLK_UP:
@@ -30,8 +32,12 @@ void Player::update(Optional<SDL_Event> event) {
             case SDLK_RIGHT:
                 move(Direction::RIGHT);
                 break;
+            default:
+                updated = false;
         }
     }
+
+    return updated;
 }
 
 bool Player::move(Direction dir) {

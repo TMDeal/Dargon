@@ -21,7 +21,7 @@ class Player : public Actor {
         Player(const std::string& name, const Sprite& sprite, const SDL2pp::Point& coordinates);
         ~Player();
 
-        void update(SDL2pp::Optional<SDL_Event> event) override;
+        bool update(SDL2pp::Optional<SDL_Event> event) override;
 
         bool move(Direction dir);
 };

@@ -21,7 +21,7 @@ class Actor {
         Actor(const std::string& name, Sprite sprite, const SDL2pp::Point& coordinates);
         virtual ~Actor();
 
-        virtual void update(SDL2pp::Optional<SDL_Event> event) = 0;
+        virtual bool update(SDL2pp::Optional<SDL_Event> event) = 0;
         virtual void render(SDL2pp::Renderer& renderer);
 };
 
