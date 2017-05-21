@@ -32,7 +32,7 @@ System::System(const Config& config)
             m_config.screen_width, m_config.screen_height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)),
     m_renderer(std::make_unique<Renderer>(*m_window.get(), -1, SDL_RENDERER_ACCELERATED)),
     m_sprite_sheet(*m_renderer.get(), "sprites"),
-    m_player("Rogue", m_sprite_sheet.makeSprite("male-default", Color(0, 0, 255), NullOpt))
+    m_player("Rogue", m_sprite_sheet.makeSprite("male-default", Color(0, 0, 255)))
 {}
 
 System::~System() = default;

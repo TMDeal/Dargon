@@ -5,11 +5,11 @@ using SDL2pp::Point;
 using SDL2pp::Optional;
 using SDL2pp::Renderer;
 
-Player::Player(const std::string& name, Sprite sprite) 
+Player::Player(const std::string& name, const Sprite& sprite) 
     :super(name, sprite, Point(0, 0))
 {}
 
-Player::Player(const std::string& name, Sprite sprite, const Point& coordinates) 
+Player::Player(const std::string& name, const Sprite& sprite, const Point& coordinates) 
     :super(name, sprite, coordinates)
 {}
 
