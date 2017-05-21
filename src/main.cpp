@@ -8,7 +8,6 @@ int main(int argc, char *argv[])
     System sys(config);
 
     while(sys.running()) {
-        sys.handleEvents();
         sys.update();
         sys.draw();
     }
