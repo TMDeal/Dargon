@@ -5,6 +5,7 @@
 #include "config.hpp"
 #include "sprite.hpp"
 #include "player.hpp"
+#include "level.hpp"
 
 namespace SDL2pp {
     class SDL;
@@ -15,9 +16,17 @@ namespace SDL2pp {
     class Renderer;
 }
 
+enum System_State {
+    STARTING,
+    IDLE,
+    NEW_TURN,
+    WINDOW_RESIZED
+};
+
 class System {
     private:
         bool m_running;
+        System_State m_state;
         Config m_config;
 
         std::unique_ptr<SDL2pp::SDL> m_sdl;
@@ -30,6 +39,7 @@ class System {
         SpriteSheet m_sprite_sheet;
 
         Player m_player;
+        Level m_level;
     public:
         System(const Config& config);
         ~System();

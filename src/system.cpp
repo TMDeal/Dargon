@@ -21,6 +21,7 @@ using SDL2pp::Renderer;
 
 System::System(const Config& config)
     :m_running(true),
+    m_state(System_State::STARTING),
     m_config(config),
     m_sdl(std::make_unique<SDL>(SDL_INIT_VIDEO | SDL_INIT_AUDIO)),
     m_sdl_image(std::make_unique<SDLImage>(IMG_INIT_PNG)),
@@ -32,7 +33,8 @@ System::System(const Config& config)
             m_config.screen_width, m_config.screen_height, SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)),
     m_renderer(std::make_unique<Renderer>(*m_window.get(), -1, SDL_RENDERER_ACCELERATED)),
     m_sprite_sheet(*m_renderer.get(), "sprites"),
-    m_player("Rogue", m_sprite_sheet.makeSprite("male-default", Color(0, 0, 255)))
+    m_player("Rogue", m_sprite_sheet.makeSprite("male-default", NullOpt)),
+    m_level(m_sprite_sheet, m_config.screen_width, m_config.screen_height)
 {}
 
 System::~System() = default;
@@ -44,8 +46,18 @@ void System::update() {
         switch(event.type) {
             case SDL_QUIT:
                 quit();
+                break;
             case SDL_KEYDOWN:
-                m_player.update(event);
+                if(m_player.update(event)) {
+                    m_state = System_State::NEW_TURN;
+                }
+                break;
+            case SDL_WINDOWEVENT:
+                switch(event.window.event) {
+                    case SDL_WINDOWEVENT_RESIZED:
+                        m_state = System_State::WINDOW_RESIZED;
+                }
+                break;
             default:
                 break;
         }
@@ -53,10 +65,14 @@ void System::update() {
 }
 
 void System::draw() {
-    m_renderer->SetDrawColor(0, 0, 0);
-    m_renderer->Clear();
-    m_player.render(*m_renderer.get());
-    m_renderer->Present();
+    if(m_state != System_State::IDLE) {
+        m_renderer->SetDrawColor(0, 0, 0);
+        m_renderer->Clear();
+        m_level.render(*m_renderer.get());
+        m_player.render(*m_renderer.get());
+        m_renderer->Present();
+        m_state = System_State::IDLE;
+    }
 }
 
 bool System::running() const {
