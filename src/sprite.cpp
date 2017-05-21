@@ -54,6 +54,14 @@ SpriteSheet::SpriteSheet(Renderer& renderer, const std::string& sprite_sheet_nam
 
 SpriteSheet::~SpriteSheet() = default;
 
+int SpriteSheet::getSpriteWidth() const {
+    return m_sheet_data["sprite-width"].asInt();
+}
+
+int SpriteSheet::getSpriteHeight() const {
+    return m_sheet_data["sprite-height"].asInt();
+}
+
 Sprite SpriteSheet::makeSprite(const std::string& spriteName,
         const Optional<Color>& color)
 {

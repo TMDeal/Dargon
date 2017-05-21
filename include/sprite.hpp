@@ -39,6 +39,9 @@ class SpriteSheet {
         SpriteSheet(SDL2pp::Renderer& renderer, const std::string& sprite_sheet_name);
         ~SpriteSheet();
 
+        int getSpriteWidth() const;
+        int getSpriteHeight() const;
+
         Sprite makeSprite(const std::string &spriteName,
                 const SDL2pp::Optional<Color> &color);
 };
