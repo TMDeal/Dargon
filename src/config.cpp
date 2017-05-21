@@ -18,6 +18,7 @@ Config getConfig(const std::string& filename) {
 
     config.screen_width = root.get("screen-width", 620).asInt();
     config.screen_height = root.get("screen-height", 480).asInt();
+    config.fps = root.get("fps", 60).asInt();
 
     return config;
 }
