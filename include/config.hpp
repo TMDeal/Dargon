@@ -6,6 +6,7 @@
 struct Config {
     int screen_width;
     int screen_height;
+    int fps;
 };
 
 Config getConfig(const std::string& filename);
