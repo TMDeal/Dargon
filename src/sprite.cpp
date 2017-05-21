@@ -14,22 +14,17 @@ using namespace SDL2pp;
  * Sprite Definitions
  */
 Sprite::Sprite(Texture* texture, Rect rect, const std::string& type, 
-        const Optional<Color>& color, const Optional<Sprite_flags>& flags)
+        const Optional<Color>& color)
     :m_texture(texture),
     m_rect(rect),
     m_type(type),
-    m_color(color.value_or(Color(255, 255, 255))),
-    m_flags(flags.value_or(Sprite_flags::IS_WALKABLE))
+    m_color(color.value_or(Color(255, 255, 255)))
 {}
 
 Sprite::~Sprite() = default;
 
 std::string Sprite::getType() const {
     return m_type;
-}
-
-bool Sprite::hasFlag(Sprite_flags flag) const {
-    return m_flags.test(flag);
 }
 
 void Sprite::setColor(const Color& color) {
@@ -60,7 +55,7 @@ SpriteSheet::SpriteSheet(Renderer& renderer, const std::string& sprite_sheet_nam
 SpriteSheet::~SpriteSheet() = default;
 
 Sprite SpriteSheet::makeSprite(const std::string& spriteName,
-        const Optional<Color>& color, const Optional<Sprite_flags>& flags)
+        const Optional<Color>& color)
 {
     Json::Value sprite_data = m_sheet_data["sprites"][spriteName];
 
@@ -80,6 +75,6 @@ Sprite SpriteSheet::makeSprite(const std::string& spriteName,
 
     std::string sprite_type = sprite_data["type"].asString();
 
-    Sprite sprite(sprite_texture, sprite_rect, sprite_type, color, flags);
+    Sprite sprite(sprite_texture, sprite_rect, sprite_type, color);
     return sprite;
 }
