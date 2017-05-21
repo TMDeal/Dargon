@@ -2,6 +2,7 @@
 #define TILE_HPP
 
 #include <SDL2pp/Point.hh>
+#include <SDL2pp/Optional.hh>
 #include <vector>
 #include <bitset>
 #include "sprite.hpp"
@@ -22,12 +23,12 @@ typedef std::bitset<MAX_TILE_FLAGS> tile_bitset;
 
 class Tile {
     private:
+        SDL2pp::Optional<Sprite> m_sprite;
         SDL2pp::Point m_coordinates;
-        Sprite m_sprite;
         tile_bitset m_flags;
     public:
-        Tile(const Sprite& sprite);
-        Tile(const Sprite& sprite, Tile_flags flags);
+        Tile(const SDL2pp::Point& coordinates, const SDL2pp::Optional<Sprite>& sprite);
+        Tile(const SDL2pp::Point& coordinates, const SDL2pp::Optional<Sprite>& sprite, Tile_flags flags);
         ~Tile();
 
         void render(SDL2pp::Renderer& Renderer);
