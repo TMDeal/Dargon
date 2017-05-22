@@ -14,11 +14,12 @@ using namespace SDL2pp;
  * Sprite Definitions
  */
 Sprite::Sprite(Texture* texture, Rect rect, const std::string& type, 
-        const Optional<Color>& color)
+        const Optional<Color>& color, double size_multiplier)
     :m_texture(texture),
     m_rect(rect),
     m_type(type),
-    m_color(color.value_or(Color(255, 255, 255)))
+    m_color(color.value_or(Color(255, 255, 255))),
+    m_size_multiplier(size_multiplier)
 {}
 
 Sprite::~Sprite() = default;
@@ -33,14 +34,16 @@ void Sprite::setColor(const Color& color) {
 
 void Sprite::render(Renderer& renderer, const Point& point) {
     m_texture->SetColorMod(m_color.r, m_color.g, m_color.b);
-    Point sprite_size(m_rect.GetW(), m_rect.GetH());
+    Point sprite_size(m_rect.GetW() * m_size_multiplier, m_rect.GetH() * m_size_multiplier);
     renderer.Copy(*m_texture, m_rect, Rect(point * sprite_size, sprite_size));
 }
 
 /*
  * SpriteSheet Definitions
  */
-SpriteSheet::SpriteSheet(Renderer& renderer, const std::string& sprite_sheet_name) {
+SpriteSheet::SpriteSheet(Renderer& renderer, const std::string& sprite_sheet_name, double size_multiplier)
+    :m_size_multiplier(size_multiplier)
+{
     SDL2pp::Surface sprite_sheet_surface(RES_DIRECTORY + sprite_sheet_name + ".png");
     SDL2pp::Surface::LockHandle lock = sprite_sheet_surface.Lock();
     Color colorKey(255, 0, 255);
@@ -83,6 +86,6 @@ Sprite SpriteSheet::makeSprite(const std::string& spriteName,
 
     std::string sprite_type = sprite_data["type"].asString();
 
-    Sprite sprite(sprite_texture, sprite_rect, sprite_type, color);
+    Sprite sprite(sprite_texture, sprite_rect, sprite_type, color, m_size_multiplier);
     return sprite;
 }
